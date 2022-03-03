@@ -7,11 +7,12 @@ import { FooterComponent } from './footer/footer.component';
 
 // Material
 import { MatCardModule } from '@angular/material/card';
+import { PhonePipe } from '../pipes/phone.pipe';
 
 @NgModule({
-  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent],
+  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe],
   imports: [CommonModule, MatCardModule],
   providers: [],
-  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent],
+  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe],
 })
 export class ComponentsModule {}

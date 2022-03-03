@@ -1,39 +1,21 @@
-<div class="mt-3">
+<mat-card class="mt-3 shadow-sm p-3 mb-5 bg-white rounded">
   <div class="d-flex justify-content-around">
-    <mat-card class="mat-card-color">
-      <strong>Starter</strong> <br />
-      Velocidade: 50MB <br />
-      Fibra ate sua casa <br />
-      Adesao do plano 0800 <br />
-      Valor: 49,90
-    </mat-card>
-    <mat-card class="mat-card-color">
-      <strong>Basic</strong> <br />
-      Velocidade: 100MB <br />
-      Fibra ate sua casa <br />
-      Adesao do plano 0800 <br />
-      Valor: 79,90
-    </mat-card>
-    <mat-card class="mat-card-color">
-      <strong>Professional</strong> <br />
-      Velocidade: 300MB <br />
-      Fibra ate sua casa <br />
-      Adesao do plano 0800 <br />
-      Valor: 99,90
-    </mat-card>
-    <mat-card class="mat-card-color">
-      <strong>Ultra</strong> <br />
-      Velocidade: 450MB <br />
-      Fibra ate sua casa <br />
-      Adesao do plano 0800 <br />
-      Valor: 129,90
-    </mat-card>
-    <mat-card class="mat-card-color">
-      <strong>Supreme</strong> <br />
-      Velocidade: 600MB <br />
-      Fibra ate sua casa <br />
-      Adesao do plano 0800 <br />
-      Valor: 149,90
+    <mat-card *ngFor="let product of products" class="mat-card-color">
+      <span
+        ><strong>{{ product.category?.name }}</strong> </span
+      ><br />
+      <div>
+        Download: {{ product.speedDownload + ' MB' }} <br />
+        Upload: {{ product.speedUpload + ' MB' }} <br />
+        {{ product.valueWifi ? product.valueWifi : "Wifi Grátis" }} <br />
+        {{ product.taxaAdesao ? product.taxaAdesao : "Sem Taxa de Adesão" }}
+        <br />
+        Valor: {{ product.value | currency: "BRL" }}
+      </div>
+
+      <div class="mt-2">
+        <button class="btn btn-success">Contrate Agora &nbsp;<i class="fa-brands fa-whatsapp"></i></button>
+      </div>
     </mat-card>
   </div>
-</div>
+</mat-card>
