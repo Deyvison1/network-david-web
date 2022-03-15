@@ -8,11 +8,12 @@ import { FooterComponent } from './footer/footer.component';
 // Material
 import { MatCardModule } from '@angular/material/card';
 import { PhonePipe } from '../pipes/phone.pipe';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
-  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe],
+  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
   imports: [CommonModule, MatCardModule],
   providers: [],
-  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe],
+  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
 })
 export class ComponentsModule {}

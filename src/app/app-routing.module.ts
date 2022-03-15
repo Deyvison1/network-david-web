@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-
+import { HomePageComponent } from './components/home-page/home-page.component';
 const routes: Routes = [
-  { path: 'nav', component: NavBarComponent },
-  { path: '', redirectTo: 'nav', pathMatch: 'full' },
-  { path: '**', redirectTo: 'nav' }
+  { path: 'home', component: HomePageComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
