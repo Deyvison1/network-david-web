@@ -1,0 +1,87 @@
+<div>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-4">
+        <label>Nome:</label>
+        <input
+          class="form-control"
+          type="text"
+          formControlName="name"
+          placeholder="Nome"
+        />
+      </div>
+      <div class="col">
+        <label>Velocidade de Download:</label>
+        <input
+          class="form-control"
+          type="number"
+          formControlName="speedDownload"
+          placeholder="Velocidade de Download"
+        />
+      </div>
+      <div class="col">
+        <label>Velocidade de Upload:</label>
+        <input
+          class="form-control"
+          type="number"
+          formControlName="speedUpload"
+          placeholder="Velocidade de Upload"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label>Taxa de Adesão:</label>
+        <input
+          class="form-control"
+          type="number"
+          formControlName="taxaAdesao"
+          placeholder="Taxa de Adesão"
+        />
+      </div>
+      <div class="col">
+        <label>Valor Wifi:</label>
+        <input
+          class="form-control"
+          type="number"
+          formControlName="valueWifi"
+          placeholder="Valor Wifi"
+        />
+      </div>
+      <div class="col">
+        <label>Valor:</label>
+        <input
+          class="form-control"
+          type="number"
+          formControlName="value"
+          placeholder="Valor"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Descrição</label>
+        <textarea
+          class="form-control"
+          name="description"
+          cols="30"
+          formControlName="description"
+        ></textarea>
+      </div>
+    </div>
+    <div class="mt-2 row">
+      <div class="col">
+        <select class="form-control">
+          <option>Categoria 2</option>
+          <option>Categoria 1</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-2 d-flex justify-content-between">
+      <button (click)="cancel()" class="btn btn-secondary">Fechar</button>
+      <button (click)="save()" class="btn btn-success">Salvar</button>
+    </div>
+  </form>
+</div>

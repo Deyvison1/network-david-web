@@ -9,10 +9,11 @@ import { FooterComponent } from './footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { PhonePipe } from '../pipes/phone.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatDialogModule],
   providers: [],
   exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
 })
