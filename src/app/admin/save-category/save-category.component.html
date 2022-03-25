@@ -1,22 +1,33 @@
-
 <div>
-    <h2 class="text-center">Categoria</h2>
-    <form [formGroup]="form">
-        <div class="row">
-            <div>
-                <label>Nome:</label>
-                <input type="text" class="form-control" formControlName="name" placeholder="Nome">
-            </div>
-        </div>
-        <div class="row">
-            <div>   
-            <label>Descrição</label>
-            <textarea class="form-control" formControlName="description" cols="30"></textarea>
-            </div>
-        </div>
-        <div class="mt-2 d-flex justify-content-between">
-            <button (click)="cancel()" class="btn btn-secondary">Fechar</button>
-            <button (click)="saveCategory()" class="btn btn-success">Salvar Categoria</button>
-        </div>
-    </form>
+  <app-drag-and-drop></app-drag-and-drop>
+  <h2 class="text-center">Categoria</h2>
+  <form [formGroup]="form">
+    <div class="row">
+      <div>
+        <label>Nome:</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Nome"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Descrição</label>
+        <textarea
+          class="form-control"
+          formControlName="description"
+          cols="30"
+        ></textarea>
+      </div>
+    </div>
+    <div class="mt-2 d-flex justify-content-between">
+      <button (click)="cancel()" class="btn btn-secondary">Fechar</button>
+      <button (click)="saveCategory()" class="btn btn-success">
+        Salvar Categoria
+      </button>
+    </div>
+  </form>
 </div>

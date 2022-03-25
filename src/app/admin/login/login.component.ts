@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { RouterService } from 'src/app/services/router.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +19,10 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(
-    private _snackBar: MatSnackBar,
-    private router: Router,
-    private dialogRef: MatDialogRef<LoginComponent>
+    private notificationService: NotificationService,
+    private dialogRef: MatDialogRef<LoginComponent>,
+    private localStorageService: LocalStorageService,
+    private router: RouterService
   ) {}
 
   ngOnInit(): void {
@@ -26,15 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   isLogado(): boolean {
-    if(this.getLocalStorage() === '123123asdas///123.,,p,pap12312') {
+    if (
+      this.localStorageService.getItem('logado') ===
+      '123123asdas///123.,,p,pap12312'
+    ) {
       return true;
     } else {
       return false;
     }
-  }
-
-  getLocalStorage() {
-    return localStorage.getItem('logado');
   }
 
   login() {
@@ -53,15 +56,18 @@ export class LoginComponent implements OnInit {
   }
 
   saveLocalStorage() {
-    localStorage.setItem('logado', '123123asdas///123.,,p,pap12312');
+    this.localStorageService.setItem(
+      'logado',
+      '123123asdas///123.,,p,pap12312'
+    );
   }
 
   notification(msg: string) {
-    this._snackBar.open(msg);
+    this.notificationService.notificationSimple(msg);
   }
 
   redirectionTo(router: string) {
-    this.router.navigateByUrl(router);    
+    this.router.redirectionTo(router);
   }
 
   cancel() {

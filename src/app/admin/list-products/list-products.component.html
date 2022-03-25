@@ -1,0 +1,12 @@
+<mat-card class="container">
+  <mat-card-title>Planos</mat-card-title>
+  <div class="mt-2" *ngFor="let item of list">
+    <mat-card (click)="openDialogProduct(item)">
+      {{ item.name }}
+      {{ item.idade }}
+    </mat-card>
+  </div>
+  <button (click)="openDialogProduct()" class="mt-2 btn btn-primary">
+    Adicionar
+  </button>
+</mat-card>

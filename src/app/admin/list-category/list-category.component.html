@@ -1,0 +1,13 @@
+<mat-card class="mt-2 container">
+  <mat-card-title>Categorias</mat-card-title>
+  <div class="mt-2" *ngFor="let item of list">
+    <mat-card (click)="addDialogCategory(item)">
+      {{ item.name }}
+      {{ item.idade }}
+    </mat-card>
+  </div>
+
+  <button (click)="addDialogCategory()" class="mt-2 btn btn-primary">
+    Adicionar Categoria
+  </button>
+</mat-card>

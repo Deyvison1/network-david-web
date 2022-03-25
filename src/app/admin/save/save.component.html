@@ -1,4 +1,6 @@
 <div>
+  <app-drag-and-drop></app-drag-and-drop>
+  <h2 class="text-center">Plano</h2>
   <form [formGroup]="form">
     <div class="row">
       <div class="col-4">
@@ -72,9 +74,10 @@
     </div>
     <div class="mt-2 row">
       <div class="col">
-        <select class="form-control">
-          <option>Categoria 2</option>
-          <option>Categoria 1</option>
+        <select class="form-control" formControlName="category">
+          <option *ngFor="let item of list" [value]="item.id">
+            {{ item.name }}
+          </option>
         </select>
       </div>
     </div>

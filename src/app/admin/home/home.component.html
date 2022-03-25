@@ -1,27 +1,17 @@
-<div >
-<button (click)="sair()" class="btn btn-danger">Sair</button>
-
-  <mat-card  class="container">
-    <mat-card-title>Produtos</mat-card-title>
-    <div class="mt-2" *ngFor="let item of list">
-      <mat-card (click)="save(item)">
-        {{ item.name }}
-        {{ item.idade }}
-      </mat-card>
-    </div>
-    <button (click)="save()" class="mt-2 btn btn-primary">Adicionar</button>
-  </mat-card>
-  
-  <mat-card class="mt-2 container">
-    <mat-card-title>Categorias</mat-card-title>
-    <div class="mt-2" *ngFor="let item of list">
-      <mat-card (click)="saveCategory(item)">
-        {{ item.name }}
-        {{ item.idade }}
-      </mat-card>
-    </div>
-  
-    <button (click)="saveCategory()" class="mt-2 btn btn-primary">Adicionar Categoria</button>
-  </mat-card>
+<div class="bg-dark" style="height: 100px;">
 </div>
+<mat-card class="container border" style="margin-top: 40px;">
+  <div class="mt-2 d-flex justify-content-between">
+    <button (click)="redirecionarPagePrincipal()" class="btn btn-success">
+      <i class="fa-solid fa-arrow-left"></i>&nbsp; Voltar a pagina principal
+    </button>
 
+    <button (click)="sair()" class="btn btn-danger">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp; Sair
+    </button>
+  </div>
+
+  <app-list-products></app-list-products>
+
+  <app-list-category></app-list-category>
+</mat-card>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { RouterService } from 'src/app/services/router.service';
 import { SaveCategoryComponent } from '../save-category/save-category.component';
 import { SaveComponent } from '../save/save.component';
 
@@ -10,48 +12,19 @@ import { SaveComponent } from '../save/save.component';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  list = [
-    {
-      name: 'eu',
-      idade: 25,
-    },
-    {
-      name: 'eu',
-      idade: 25,
-    },
-    {
-      name: 'eu',
-      idade: 25,
-    },
-  ];
-
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(
+    private router: RouterService,
+    private localStorageService: LocalStorageService
+  ) {}
 
   ngOnInit(): void {}
 
   sair() {
-    this.clearLocalStorage();
-    this.redirection('home');
+    this.localStorageService.clearAll();
+    this.router.redirectionTo('home');
   }
 
-  redirection(url: string) {
-    this.router.navigateByUrl(url);
-  }
-
-  clearLocalStorage() {
-    localStorage.clear();
-  }
-
-  save(item?: any) {
-    this.dialog.open(SaveComponent, {
-      data: item
-    });
-  }
-
-  saveCategory(item?: any) {
-    this.dialog.open(SaveCategoryComponent, {
-      width: '600px',
-      data: item
-    });
+  redirecionarPagePrincipal() {
+    this.router.redirectionTo('home');
   }
 }
