@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from 'src/app/models/dto/product.dto';
+import { ProductService } from 'src/app/services/product.service';
 import { FormUtil } from 'src/app/utils/form.utils';
 
 @Component({
@@ -28,7 +29,7 @@ export class SaveComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<SaveComponent>,
-    private fb: FormBuilder
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {

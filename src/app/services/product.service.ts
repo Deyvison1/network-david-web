@@ -20,8 +20,15 @@ export class ProductService {
     return this.http.get<Product[]>(this.url);
   }
 
-  saveProduct(product: Product): Observable<Product> {
+  insertProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(`${this.url}`, product);
-  }  
+  }
 
+  editProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.url}`, product);
+  }
+
+  deleteProduct(productId: number): Observable<Product> {
+    return this.http.delete<Product>(`${this.url}/${productId}`);
+  }
 }

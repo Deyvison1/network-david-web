@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { Category } from 'src/app/models/dto/category.dto';
+import { CategoryService } from 'src/app/services/category.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { SaveCategoryComponent } from '../save-category/save-category.component';
 
 @Component({
@@ -8,28 +12,58 @@ import { SaveCategoryComponent } from '../save-category/save-category.component'
   styleUrls: ['./list-category.component.scss'],
 })
 export class ListCategoryComponent implements OnInit {
-  list = [
-    {
-      name: 'eu',
-      idade: 25,
-    },
-    {
-      name: 'eu',
-      idade: 25,
-    },
-    {
-      name: 'eu',
-      idade: 25,
-    },
-  ];
-  constructor(private dialog: MatDialog) {}
+  @ViewChild(MatPaginator, { static: true }) paginacao: MatPaginator;
 
-  ngOnInit(): void {}
+  totalItens: string | null;
+  listCategory: Category[] | null = [];
+  listCategoryChecked: Category[] | null = [];
 
-  addDialogCategory(item?: any) {
-    this.dialog.open(SaveCategoryComponent, {
+  constructor(
+    private dialog: MatDialog,
+    private categoryService: CategoryService,
+    private notificationService: NotificationService
+  ) {}
+
+  ngOnInit(): void {
+    this.paginacao._intl.itemsPerPageLabel = 'Itens por página';
+    this.getAll();
+  }
+
+  getAll() {
+    this.categoryService
+      .getAllCategory(this.paginacao.pageIndex, this.paginacao.pageSize)
+      .subscribe((resp) => {
+        console.log(resp);
+        this.listCategory = resp.body;
+        this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+      });
+  }
+
+  trocarPagina() {
+    this.getAll();
+  }
+
+  addDialogCategory(category?: Category) {
+    const dialogRef = this.dialog.open(SaveCategoryComponent, {
       width: '600px',
-      data: item,
+      data: category,
+    });
+
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
+        this.notificationService.notificationComplet(
+          'Categoria salva com sucesso',
+          'OK',
+          5000
+        );
+        this.getAll();
+      } else {
+        this.notificationService.notificationComplet(
+          'Error ao salvar categoria',
+          'OK',
+          5000
+        );
+      }
     });
   }
 }
