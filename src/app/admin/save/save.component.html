@@ -75,8 +75,8 @@
     <div class="mt-2 row">
       <div class="col">
         <select class="form-control" formControlName="category">
-          <option *ngFor="let item of list" [value]="item.id">
-            {{ item.name }}
+          <option *ngFor="let category of listCategory" [value]="category.value">
+            {{ category.label }}
           </option>
         </select>
       </div>

@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../models/dto/category.dto';
+import { LabelValueDTO } from '../models/dto/label-value-dto.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,12 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategory(pageIndex: number, pageSize: number): Observable<HttpResponse<Category[]>> {
+  getAllCategoryPage(pageIndex: number, pageSize: number): Observable<HttpResponse<Category[]>> {
     return this.http.get<Category[]>(`${this.urlApiCategory}?page=${pageIndex}&size=${pageSize}`, { observe: 'response' });
+  }
+
+  getAllCategory(): Observable<LabelValueDTO[]> {
+    return this.http.get<LabelValueDTO[]>(`${this.urlApiCategory}/get-all`);
   }
 
   insertCategory(category: Category) {

@@ -31,7 +31,7 @@ export class ListCategoryComponent implements OnInit {
 
   getAll() {
     this.categoryService
-      .getAllCategory(this.paginacao.pageIndex, this.paginacao.pageSize)
+      .getAllCategoryPage(this.paginacao.pageIndex, this.paginacao.pageSize)
       .subscribe((resp) => {
         console.log(resp);
         this.listCategory = resp.body;
