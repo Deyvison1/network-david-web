@@ -16,8 +16,12 @@ export class ProductService {
     private http: HttpClient
   ) { }
 
+  getAllProductsPage(pageIndex: number, pageSize: number): Observable<HttpResponse<Product[]>> {
+    return this.http.get<Product[]>(`${this.url}?page=${pageIndex}&size=${pageSize}`, { observe: 'response' });
+  }
+
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url);
+    return this.http.get<Product[]>(`${this.url}/get-all`);
   }
 
   insertProduct(product: Product): Observable<Product> {

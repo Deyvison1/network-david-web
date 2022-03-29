@@ -16,7 +16,6 @@ export class ListCategoryComponent implements OnInit {
 
   totalItens: string | null;
   listCategory: Category[] | null = [];
-  listCategoryChecked: Category[] | null = [];
 
   constructor(
     private dialog: MatDialog,
@@ -33,7 +32,6 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService
       .getAllCategoryPage(this.paginacao.pageIndex, this.paginacao.pageSize)
       .subscribe((resp) => {
-        console.log(resp);
         this.listCategory = resp.body;
         this.totalItens = resp.headers.get('X_TOTAL_COUNT');
       });
@@ -50,19 +48,8 @@ export class ListCategoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((resp) => {
-      if (resp) {
-        this.notificationService.notificationComplet(
-          'Categoria salva com sucesso',
-          'OK',
-          5000
-        );
+      if(resp) {
         this.getAll();
-      } else {
-        this.notificationService.notificationComplet(
-          'Error ao salvar categoria',
-          'OK',
-          5000
-        );
       }
     });
   }

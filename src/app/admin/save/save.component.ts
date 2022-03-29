@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/dto/category.dto';
 import { LabelValueDTO } from 'src/app/models/dto/label-value-dto.dto';
 import { Product } from 'src/app/models/dto/product.dto';
 import { CategoryService } from 'src/app/services/category.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { FormUtil } from 'src/app/utils/form.utils';
 
@@ -22,12 +23,22 @@ export class SaveComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<SaveComponent>,
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.form = FormUtil.buildForm(Object.keys(new Product()));
     this.getAllCategory();
+    this.editOrInsert();
+  }
+
+  editOrInsert() {
+    if(!!this.data.id) {
+      this.form.patchValue(this.data);
+    } else {
+      this.form.reset();
+    }
   }
 
   getAllCategory() {
@@ -38,8 +49,8 @@ export class SaveComponent implements OnInit {
     );
   }
 
-  cancel() {
-    this.dialogRef.close();
+  cancel(refreshPage: boolean) {
+    this.dialogRef.close(refreshPage);
   }
 
   save() {
@@ -49,13 +60,21 @@ export class SaveComponent implements OnInit {
     if(valuesForm.id === '') {
       this.productService.insertProduct(valuesForm).subscribe(
         (resp) => {
-
+          this.cancel(true);
+          this.notificationService.notificationComplet('Sucesso ao salvar product', 'OK', 5000);
+        }, err => {
+          this.cancel(false);
+          this.notificationService.notificationComplet('Error ao salvar product', 'OK', 5000);
         }
       );
     } else {
       this.productService.editProduct(valuesForm).subscribe(
         (resp) => {
-
+          this.cancel(true);
+          this.notificationService.notificationComplet('Sucesso ao salvar product', 'OK', 5000);
+        }, err => {
+          this.cancel(false);
+          this.notificationService.notificationComplet('Error ao salvar product', 'OK', 5000);
         }
       );
     }

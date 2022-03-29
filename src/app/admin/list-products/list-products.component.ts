@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { Product } from 'src/app/models/dto/product.dto';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ProductService } from 'src/app/services/product.service';
 import { SaveComponent } from '../save/save.component';
 
 @Component({
@@ -8,28 +12,43 @@ import { SaveComponent } from '../save/save.component';
   styleUrls: ['./list-products.component.scss'],
 })
 export class ListProductsComponent implements OnInit {
-  list = [
-    {
-      name: 'eu',
-      idade: 25,
-    },
-    {
-      name: 'eu',
-      idade: 25,
-    },
-    {
-      name: 'eu',
-      idade: 25,
-    },
-  ];
+  @ViewChild(MatPaginator, { static: true }) paginacao: MatPaginator;
 
-  constructor(private dialog: MatDialog) {}
+  listProducts: Product[] | null = [];
+  totalItens: string | null;
 
-  ngOnInit(): void {}
+  constructor(
+    private dialog: MatDialog,
+    private productService: ProductService,
+    private notificationService: NotificationService
+  ) {}
+
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll() {
+    this.productService
+      .getAllProductsPage(this.paginacao.pageIndex, this.paginacao.pageSize)
+      .subscribe((resp) => {
+        this.listProducts = resp.body;
+        this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+      });
+  }
+
+  trocarPagina() {
+    this.getAll();
+  }
 
   openDialogProduct(item?: any) {
-    this.dialog.open(SaveComponent, {
+    const dialogRef = this.dialog.open(SaveComponent, {
       data: item,
+    });
+
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
+        this.getAll();
+      }
     });
   }
 }

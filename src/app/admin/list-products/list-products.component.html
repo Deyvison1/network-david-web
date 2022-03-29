@@ -1,12 +1,21 @@
 <mat-card class="container">
   <mat-card-title>Planos</mat-card-title>
-  <div class="mt-2" *ngFor="let item of list">
+  <div class="mt-2" *ngFor="let item of listProducts">
     <mat-card (click)="openDialogProduct(item)">
       {{ item.name }}
-      {{ item.idade }}
+      {{ item.description }}
     </mat-card>
   </div>
   <button (click)="openDialogProduct()" class="mt-2 btn btn-primary">
     Adicionar
   </button>
 </mat-card>
+<div>
+  <mat-paginator
+    #paginacao
+    [length]="totalItens"
+    [pageSizeOptions]="[5, 10, 20, 50]"
+    (page)="trocarPagina()"
+    >
+  </mat-paginator>
+</div>

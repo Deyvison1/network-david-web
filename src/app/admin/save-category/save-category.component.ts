@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/dto/category.dto';
 import { CategoryService } from 'src/app/services/category.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { FormUtil } from 'src/app/utils/form.utils';
 
 @Component({
@@ -18,7 +19,8 @@ export class SaveCategoryComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Category,
     private categoryService: CategoryService,
-    private dialogRef: MatDialogRef<SaveCategoryComponent>
+    private dialogRef: MatDialogRef<SaveCategoryComponent>,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -37,13 +39,23 @@ export class SaveCategoryComponent implements OnInit {
 
   saveCategory() {
     const valuesForm = this.form.value;
-    this.categoryService.insertCategory(valuesForm).subscribe(
-      (resp) => {
-        this.cancel(true);
-      }, err => {
-        this.cancel(false);
-      }
-    )
+    if(valuesForm.id === '') {
+      this.categoryService.insertCategory(valuesForm).subscribe(
+        (resp) => {
+          this.cancel(true);
+        }, err => {
+          this.cancel(false);
+        }
+      )
+    } else {
+      this.categoryService.editCategory(valuesForm).subscribe(
+        (resp) => {
+          this.cancel(true);
+        }, err => {
+          this.cancel(false);
+        }
+      )
+    }
   }
 
   cancel(reloead?: boolean) {
