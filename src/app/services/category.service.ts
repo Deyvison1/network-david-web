@@ -17,8 +17,8 @@ export class CategoryService {
     return this.http.get<Category[]>(`${this.urlApiCategory}?page=${pageIndex}&size=${pageSize}`, { observe: 'response' });
   }
 
-  getAllCategory(): Observable<LabelValueDTO[]> {
-    return this.http.get<LabelValueDTO[]>(`${this.urlApiCategory}/get-all`);
+  getAllCategory(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.urlApiCategory}/get-all`);
   }
 
   insertCategory(category: Category) {

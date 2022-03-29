@@ -15,7 +15,7 @@ import { FormUtil } from 'src/app/utils/form.utils';
 })
 export class SaveComponent implements OnInit {
 
-  listCategory: LabelValueDTO[] = [];
+  listCategory: Category[] = [];
   form: FormGroup;
 
   constructor(
@@ -44,6 +44,20 @@ export class SaveComponent implements OnInit {
 
   save() {
     const valuesForm = this.form.value;
+    this.getAllCategory();
     console.log(valuesForm);
+    if(valuesForm.id === '') {
+      this.productService.insertProduct(valuesForm).subscribe(
+        (resp) => {
+
+        }
+      );
+    } else {
+      this.productService.editProduct(valuesForm).subscribe(
+        (resp) => {
+
+        }
+      );
+    }
   }
 }
