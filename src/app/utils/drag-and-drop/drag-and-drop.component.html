@@ -1,9 +1,19 @@
-<button
-  mat-icon-button
-  color="primary"
-  cdkDrag
-  cdkDragRootElement=".cdk-overlay-pane"
-  cdkDragHandle
->
-  <i class="fa-solid fa-maximize"></i>
-</button>
+<div class="d-flex justify-content-between">
+  <div>
+    <button
+      mat-icon-button
+      color="primary"
+      cdkDrag
+      cdkDragRootElement=".cdk-overlay-pane"
+      cdkDragHandle
+    >
+      <em class="fa-solid fa-maximize"></em>
+    </button>
+  </div>
+  <div>
+    <div class="col text-left">
+      <h3>{{ title | titlecase }}</h3>
+    </div>
+  </div>
+  <div></div>
+</div>

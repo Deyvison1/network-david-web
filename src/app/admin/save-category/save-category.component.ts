@@ -30,7 +30,7 @@ export class SaveCategoryComponent implements OnInit {
 
   insertOrEdit() {
     if(!!this.data) {
-      this.editOrInsert = 'Editar';
+      this.editOrInsert = `Editar categoria ${this.data.name}`;
       this.form.patchValue(this.data);
     } else {
       this.editOrInsert = 'Inserir';
@@ -39,23 +39,29 @@ export class SaveCategoryComponent implements OnInit {
 
   saveCategory() {
     const valuesForm = this.form.value;
+    let msg = '';
     if(valuesForm.id === '') {
       this.categoryService.insertCategory(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
+          msg = 'Sucesso ao inserir categoria';
         }, err => {
           this.cancel(false);
+          msg = 'Error ao inserir categoria';
         }
       )
     } else {
       this.categoryService.editCategory(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
+          msg = 'Sucesso ao editar categoria';
         }, err => {
           this.cancel(false);
+          msg = 'Error ao inserir categoria';
         }
       )
     }
+    this.notificationService.notificationComplet(msg, 'Ok', 5000);
   }
 
   cancel(reloead?: boolean) {

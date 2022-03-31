@@ -18,6 +18,7 @@ export class SaveComponent implements OnInit {
 
   listCategory: Category[] = [];
   form: FormGroup;
+  editOrInsert: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,14 +30,16 @@ export class SaveComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = FormUtil.buildForm(Object.keys(new Product()));
+    this.insertOrEdit();
     this.getAllCategory();
-    this.editOrInsert();
   }
 
-  editOrInsert() {
-    if(!!this.data.id) {
+  insertOrEdit() {
+    if(!!this.data) {
+      this.editOrInsert = `Editar Plano ${this.data.name}`;
       this.form.patchValue(this.data);
     } else {
+      this.editOrInsert = 'Adicionar';
       this.form.reset();
     }
   }
