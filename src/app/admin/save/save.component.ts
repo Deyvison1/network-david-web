@@ -56,11 +56,15 @@ export class SaveComponent implements OnInit {
     this.dialogRef.close(refreshPage);
   }
 
+  compareFn(c1: any, c2:any): boolean {     
+    return c1 && c2 ? c1.id === c2.id : c1 === c2; 
+}
+
   save() {
     const valuesForm = this.form.value;
     this.getAllCategory();
     console.log(valuesForm);
-    if(valuesForm.id === '') {
+    if(valuesForm.id === '' || !valuesForm.id) {
       this.productService.insertProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);

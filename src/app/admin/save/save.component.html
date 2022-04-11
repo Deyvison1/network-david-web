@@ -73,8 +73,11 @@
     </div>
     <div class="mt-2 row">
       <div class="col">
-        <select class="form-control" formControlName="category">
-          <option *ngFor="let category of listCategory" [ngValue]="category">
+        <select class="form-control" formControlName="category" [compareWith]="compareFn">
+          <option
+            *ngFor="let category of listCategory"
+            [ngValue]="category"
+          >
             {{ category.name }}
           </option>
         </select>
