@@ -11,7 +11,7 @@
           <button class="btn btn-secondary btn-sm" (click)="addDialogCategory(category)" matTooltip="Editar categoria">
             <i class="fa-solid fa-pen-to-square fa-2xs"></i>
           </button>
-          <button class="btn btn-danger btn-sm" matTooltip="Deletar categoria">
+          <button class="btn btn-danger btn-sm" (click)="deleteCategory(category.id)" matTooltip="Deletar categoria">
             <i class="fa-solid fa-trash-can fa-2xs"></i>
           </button>
         </div>

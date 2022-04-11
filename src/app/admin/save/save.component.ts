@@ -34,9 +34,8 @@ export class SaveComponent implements OnInit {
     this.getAllCategory();
   }
 
-  insertOrEdit() {
+  editOrInsert() {
     if(!!this.data) {
-      this.editOrInsert = `Editar Plano ${this.data.name}`;
       this.form.patchValue(this.data);
     } else {
       this.editOrInsert = 'Adicionar';
@@ -64,7 +63,7 @@ export class SaveComponent implements OnInit {
     const valuesForm = this.form.value;
     this.getAllCategory();
     console.log(valuesForm);
-    if(valuesForm.id === '' || !valuesForm.id) {
+    if(valuesForm.id == null || valuesForm == '') {
       this.productService.insertProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);

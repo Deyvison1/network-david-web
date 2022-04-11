@@ -1,9 +1,25 @@
 <mat-card class="container">
   <mat-card-title>Planos</mat-card-title>
-  <div class="mt-2" *ngFor="let item of listProducts">
-    <mat-card (click)="openDialogProduct(item)">
-      {{ item.name }}
-      {{ item.description }}
+  <div class="mt-2" *ngFor="let product of listProducts">
+    <mat-card>
+      <div class="d-flex justify-content-between">
+        <div>
+          <span>{{ product.name }}</span>
+          <span>{{ product.description }}</span>
+        </div>
+        <div>
+          <button
+            class="btn btn-secondary btn-sm"
+            (click)="openDialogProduct()"
+            matTooltip="Editar categoria"
+          >
+            <i class="fa-solid fa-pen-to-square fa-2xs"></i>
+          </button>
+          <button (click)="deleteProduct(product.id)" class="btn btn-danger btn-sm" matTooltip="Deletar categoria">
+            <i class="fa-solid fa-trash-can fa-2xs"></i>
+          </button>
+        </div>
+      </div>
     </mat-card>
   </div>
   <button (click)="openDialogProduct()" class="mt-2 btn btn-primary">
@@ -16,6 +32,6 @@
     [length]="totalItens"
     [pageSizeOptions]="[5, 10, 20, 50]"
     (page)="trocarPagina()"
-    >
+  >
   </mat-paginator>
 </div>

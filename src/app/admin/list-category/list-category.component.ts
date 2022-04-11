@@ -41,6 +41,13 @@ export class ListCategoryComponent implements OnInit {
     this.getAll();
   }
 
+  deleteCategory(categoryId: number) {
+    this.categoryService.deleteCategory(categoryId).subscribe((resp) => {
+      this.getAll();
+      this.notificationService.notificationComplet('Sucesso ao deletar categoria', 'OK', 5000);
+    });
+  }
+
   addDialogCategory(category?: Category) {
     const dialogRef = this.dialog.open(SaveCategoryComponent, {
       width: '600px',
