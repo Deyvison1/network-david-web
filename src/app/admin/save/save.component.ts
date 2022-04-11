@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/dto/category.dto';
-import { LabelValueDTO } from 'src/app/models/dto/label-value-dto.dto';
 import { Product } from 'src/app/models/dto/product.dto';
 import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { FormUtil } from 'src/app/utils/form.utils';
+import { Messages } from 'src/app/utils/messages';
 
 @Component({
   selector: 'app-save',
@@ -30,11 +30,12 @@ export class SaveComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = FormUtil.buildForm(Object.keys(new Product()));
-    this.insertOrEdit();
     this.getAllCategory();
+    this.insertOrEdit();
   }
 
-  editOrInsert() {
+  insertOrEdit() {
+    console.log(this.data);
     if(!!this.data) {
       this.form.patchValue(this.data);
     } else {
@@ -62,25 +63,24 @@ export class SaveComponent implements OnInit {
   save() {
     const valuesForm = this.form.value;
     this.getAllCategory();
-    console.log(valuesForm);
     if(valuesForm.id == null || valuesForm == '') {
       this.productService.insertProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
-          this.notificationService.notificationComplet('Sucesso ao salvar product', 'OK', 5000);
+          this.notificationService.notificationComplet(Messages.SUCESSSAVEPRODUCT, 'OK', 5000);
         }, err => {
           this.cancel(false);
-          this.notificationService.notificationComplet('Error ao salvar product', 'OK', 5000);
+          this.notificationService.notificationComplet(Messages.ERRSAVEPRODUCT, 'OK', 5000);
         }
       );
     } else {
       this.productService.editProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
-          this.notificationService.notificationComplet('Sucesso ao salvar product', 'OK', 5000);
+          this.notificationService.notificationComplet(Messages.SUCESSSAVEPRODUCT, 'OK', 5000);
         }, err => {
           this.cancel(false);
-          this.notificationService.notificationComplet('Error ao salvar product', 'OK', 5000);
+          this.notificationService.notificationComplet(Messages.ERREDITPRODUCT, 'OK', 5000);
         }
       );
     }

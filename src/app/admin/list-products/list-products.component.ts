@@ -5,6 +5,8 @@ import { Product } from 'src/app/models/dto/product.dto';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SaveComponent } from '../save/save.component';
+import { Messages } from 'src/app/utils/messages';
+
 
 @Component({
   selector: 'app-list-products',
@@ -43,7 +45,9 @@ export class ListProductsComponent implements OnInit {
   deleteProduct(productId: number) {
     this.productService.deleteProduct(productId).subscribe((resp) => {
       this.getAll();
-      this.notificationService.notificationComplet('Sucesso ao deletar produto', 'OK', 5000);
+      this.notificationService.notificationComplet(Messages.SUCESSDELETEPRODUCT, 'OK', 5000);
+    }, err => {
+      this.notificationService.notificationComplet(Messages.ERRDELETEPRODUCT, 'OK', 5000);
     });
   }
 

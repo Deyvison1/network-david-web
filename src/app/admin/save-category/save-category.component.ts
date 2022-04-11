@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/dto/category.dto';
 import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { FormUtil } from 'src/app/utils/form.utils';
+import { Messages } from 'src/app/utils/messages';
 
 @Component({
   selector: 'app-save-category',
@@ -29,7 +30,7 @@ export class SaveCategoryComponent implements OnInit {
   }
 
   insertOrEdit() {
-    if(!!this.data) {
+    if (!!this.data) {
       this.editOrInsert = `Editar categoria ${this.data.name}`;
       this.form.patchValue(this.data);
     } else {
@@ -39,29 +40,29 @@ export class SaveCategoryComponent implements OnInit {
 
   saveCategory() {
     const valuesForm = this.form.value;
-    let msg = '';
-    if(valuesForm.id === '') {
+    if (valuesForm.id === '') {
       this.categoryService.insertCategory(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
-          msg = 'Sucesso ao inserir categoria';
-        }, err => {
+          this.notificationService.notificationComplet(Messages.SUCESSSAVECATEGORY, 'Ok', 5000);
+        },
+        (err) => {
           this.cancel(false);
-          msg = 'Error ao inserir categoria';
+          this.notificationService.notificationComplet(Messages.ERRSAVECATEGORY, 'Ok', 5000);
         }
-      )
+      );
     } else {
       this.categoryService.editCategory(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
-          msg = 'Sucesso ao editar categoria';
-        }, err => {
+          this.notificationService.notificationComplet(Messages.SUCESSEDITCATEGORY, 'Ok', 5000);
+        },
+        (err) => {
           this.cancel(false);
-          msg = 'Error ao inserir categoria';
+          this.notificationService.notificationComplet(Messages.ERREDITCATEGORY, 'Ok', 5000);
         }
-      )
+      );
     }
-    this.notificationService.notificationComplet(msg, 'Ok', 5000);
   }
 
   cancel(reloead?: boolean) {

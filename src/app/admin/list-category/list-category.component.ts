@@ -5,6 +5,8 @@ import { Category } from 'src/app/models/dto/category.dto';
 import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SaveCategoryComponent } from '../save-category/save-category.component';
+import { Messages } from 'src/app/utils/messages';
+
 
 @Component({
   selector: 'app-list-category',
@@ -44,7 +46,9 @@ export class ListCategoryComponent implements OnInit {
   deleteCategory(categoryId: number) {
     this.categoryService.deleteCategory(categoryId).subscribe((resp) => {
       this.getAll();
-      this.notificationService.notificationComplet('Sucesso ao deletar categoria', 'OK', 5000);
+      this.notificationService.notificationComplet(Messages.SUCESSDELETECATEGORY, 'OK', 5000);
+    }, err => {
+      this.notificationService.notificationComplet(Messages.ERRDELETECATEGORY, 'OK', 5000);
     });
   }
 
