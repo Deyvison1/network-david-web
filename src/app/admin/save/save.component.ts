@@ -34,7 +34,7 @@ export class SaveComponent implements OnInit {
   }
 
   editOrInsert() {
-    if(!!this.data.id) {
+    if(!!this.data) {
       this.form.patchValue(this.data);
     } else {
       this.form.reset();
@@ -57,7 +57,7 @@ export class SaveComponent implements OnInit {
     const valuesForm = this.form.value;
     this.getAllCategory();
     console.log(valuesForm);
-    if(valuesForm.id === '') {
+    if(valuesForm.id == null || valuesForm == '') {
       this.productService.insertProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);

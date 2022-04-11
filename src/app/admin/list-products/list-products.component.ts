@@ -40,6 +40,13 @@ export class ListProductsComponent implements OnInit {
     this.getAll();
   }
 
+  deleteProduct(productId: number) {
+    this.productService.deleteProduct(productId).subscribe((resp) => {
+      this.getAll();
+      this.notificationService.notificationComplet('Sucesso ao deletar produto', 'OK', 5000);
+    });
+  }
+
   openDialogProduct(item?: any) {
     const dialogRef = this.dialog.open(SaveComponent, {
       data: item,
