@@ -15,7 +15,6 @@ import { Messages } from 'src/app/utils/messages';
   styleUrls: ['./save.component.scss'],
 })
 export class SaveComponent implements OnInit {
-
   listCategory: Category[] = [];
   form: FormGroup;
   editOrInsert: string = '';
@@ -35,8 +34,7 @@ export class SaveComponent implements OnInit {
   }
 
   insertOrEdit() {
-    console.log(this.data);
-    if(!!this.data) {
+    if (!!this.data) {
       this.form.patchValue(this.data);
     } else {
       this.editOrInsert = 'Adicionar';
@@ -45,44 +43,66 @@ export class SaveComponent implements OnInit {
   }
 
   getAllCategory() {
-    this.categoryService.getAllCategory().subscribe(
-      (resp) => {
+    this.categoryService.getAllCategory().subscribe({
+      next: (resp) => {
         this.listCategory = resp;
-      }
-    );
+      },
+      error: () => {},
+      complete: () => {},
+    });
   }
 
   cancel(refreshPage: boolean) {
     this.dialogRef.close(refreshPage);
   }
 
-  compareFn(c1: any, c2:any): boolean {     
-    return c1 && c2 ? c1.id === c2.id : c1 === c2; 
-}
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 
   save() {
     const valuesForm = this.form.value;
     this.getAllCategory();
-    if(valuesForm.id == null || valuesForm == '') {
-      this.productService.insertProduct(valuesForm).subscribe(
-        (resp) => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(Messages.SUCESSSAVEPRODUCT, 'OK', 5000);
-        }, err => {
+    if (valuesForm.id == null || valuesForm == '') {
+      this.productService.insertProduct(valuesForm).subscribe({
+        next: () => {},
+        error: () => {
           this.cancel(false);
-          this.notificationService.notificationComplet(Messages.ERRSAVEPRODUCT, 'OK', 5000);
-        }
-      );
+          this.notificationService.notificationComplet(
+            Messages.ERR_SAVE_PRODUCT,
+            'OK',
+            5000
+          );
+        },
+        complete: () => {
+          this.cancel(true);
+          this.notificationService.notificationComplet(
+            Messages.SUCCESS_SAVE_PRODUCT,
+            'OK',
+            5000
+          );
+        },
+      });
     } else {
-      this.productService.editProduct(valuesForm).subscribe(
-        (resp) => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(Messages.SUCESSSAVEPRODUCT, 'OK', 5000);
-        }, err => {
+      this.productService.editProduct(valuesForm).subscribe({
+        next: () => {},
+        error: () => {
           this.cancel(false);
-          this.notificationService.notificationComplet(Messages.ERREDITPRODUCT, 'OK', 5000);
-        }
-      );
+          this.notificationService.notificationComplet(
+            Messages.ERR_EDIT_PRODUCT,
+            'OK',
+            5000
+          );
+        },
+        complete: () => {
+          this.cancel(true);
+          this.notificationService.notificationComplet(
+            Messages.SUCCESS_SAVE_PRODUCT,
+            'OK',
+            5000
+          );
+        },
+      });
     }
   }
 }

@@ -41,27 +41,45 @@ export class SaveCategoryComponent implements OnInit {
   saveCategory() {
     const valuesForm = this.form.value;
     if (valuesForm.id === '') {
-      this.categoryService.insertCategory(valuesForm).subscribe(
-        (resp) => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(Messages.SUCESSSAVECATEGORY, 'Ok', 5000);
-        },
-        (err) => {
+      this.categoryService.insertCategory(valuesForm).subscribe({
+        next: () => {},
+        error: () => {
           this.cancel(false);
-          this.notificationService.notificationComplet(Messages.ERRSAVECATEGORY, 'Ok', 5000);
-        }
-      );
+          this.notificationService.notificationComplet(
+            Messages.ERR_SAVE_CATEGORY,
+            'Ok',
+            5000
+          );
+        },
+        complete: () => {
+          this.cancel(true);
+          this.notificationService.notificationComplet(
+            Messages.SUCCESS_SAVE_CATEGORY,
+            'Ok',
+            5000
+          );
+        },
+      });
     } else {
-      this.categoryService.editCategory(valuesForm).subscribe(
-        (resp) => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(Messages.SUCESSEDITCATEGORY, 'Ok', 5000);
-        },
-        (err) => {
+      this.categoryService.editCategory(valuesForm).subscribe({
+        next: () => {},
+        error: () => {
           this.cancel(false);
-          this.notificationService.notificationComplet(Messages.ERREDITCATEGORY, 'Ok', 5000);
-        }
-      );
+          this.notificationService.notificationComplet(
+            Messages.ERR_EDIT_CATEGORY,
+            'Ok',
+            5000
+          );
+        },
+        complete: () => {
+          this.cancel(true);
+          this.notificationService.notificationComplet(
+            Messages.SUCCESS_EDIT_CATEGORY,
+            'Ok',
+            5000
+          );
+        },
+      });
     }
   }
 

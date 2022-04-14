@@ -5,16 +5,24 @@
         ><strong>{{ product.category?.name }}</strong> </span
       ><br />
       <div>
-        Download: {{ product.speedDownload + ' MB' }} <br />
-        Upload: {{ product.speedUpload + ' MB' }} <br />
-        {{ product.valueWifi ? product.valueWifi : "Wifi Grátis" }} <br />
-        {{ product.taxaAdesao ? product.taxaAdesao : "Sem Taxa de Adesão" }}
+        <span> Download: {{ product.speedDownload + " MB" }} <br /> </span>
+        <span> Upload: {{ product.speedUpload + " MB" }} <br /> </span>
+        <span *ngIf="product.valueWifi"
+          >Wifi: {{ product.valueWifi | currency: "BRL" }}</span
+        >
+        <span *ngIf="!product.valueWifi">Wifi Grátis</span> <br />
+        <span *ngIf="product.taxaAdesao"
+          >Adesão: {{ product.taxaAdesao | currency: "BRL" }}</span
+        >
+        <span *ngIf="!product.taxaAdesao">Sem Taxa de Adesão</span>
         <br />
-        Valor: {{ product.value | currency: "BRL" }}
+        <span> Valor: {{ product.value | currency: "BRL" }} </span>
       </div>
 
       <div class="mt-2">
-        <button class="btn btn-success">Contrate Agora &nbsp;<i class="fa-brands fa-whatsapp"></i></button>
+        <button class="btn btn-success" (click)="openModalViewQrCode()">
+          Contrate Agora &nbsp;<em class="fa-brands fa-whatsapp"></em>
+        </button>
       </div>
     </mat-card>
   </div>

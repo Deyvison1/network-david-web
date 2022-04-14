@@ -10,11 +10,12 @@ import { MatCardModule } from '@angular/material/card';
 import { PhonePipe } from '../pipes/phone.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ViewQrCodeComponent } from './view-qr-code/view-qr-code.component';
 
 @NgModule({
-  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
+  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent, ViewQrCodeComponent],
   imports: [CommonModule, MatCardModule, MatDialogModule],
   providers: [],
-  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
+  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent, ViewQrCodeComponent],
 })
 export class ComponentsModule {}

@@ -7,7 +7,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { SaveComponent } from '../save/save.component';
 import { Messages } from 'src/app/utils/messages';
 
-
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -32,9 +31,12 @@ export class ListProductsComponent implements OnInit {
   getAll() {
     this.productService
       .getAllProductsPage(this.paginacao.pageIndex, this.paginacao.pageSize)
-      .subscribe((resp) => {
-        this.listProducts = resp.body;
-        this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+      .subscribe({
+        next: (resp) => {
+          this.listProducts = resp.body;
+          this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+        },
+        complete: () => {},
       });
   }
 
@@ -43,11 +45,22 @@ export class ListProductsComponent implements OnInit {
   }
 
   deleteProduct(productId: number) {
-    this.productService.deleteProduct(productId).subscribe((resp) => {
-      this.getAll();
-      this.notificationService.notificationComplet(Messages.SUCESSDELETEPRODUCT, 'OK', 5000);
-    }, err => {
-      this.notificationService.notificationComplet(Messages.ERRDELETEPRODUCT, 'OK', 5000);
+    this.productService.deleteProduct(productId).subscribe({
+      error: () => {
+        this.notificationService.notificationComplet(
+          Messages.ERR_DELETE_PRODUCT,
+          'OK',
+          5000
+        );
+      },
+      complete: () => {
+        this.getAll();
+        this.notificationService.notificationComplet(
+          Messages.SUCCESS_DELETE_PRODUCT,
+          'OK',
+          5000
+        );
+      },
     });
   }
 
