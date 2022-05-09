@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/dto/category.dto';
-import { LabelValueDTO } from 'src/app/models/dto/label-value-dto.dto';
 import { Product } from 'src/app/models/dto/product.dto';
 import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -15,7 +14,6 @@ import { FormUtil } from 'src/app/utils/form.utils';
   styleUrls: ['./save.component.scss'],
 })
 export class SaveComponent implements OnInit {
-
   listCategory: Category[] = [];
   form: FormGroup;
 
@@ -34,7 +32,7 @@ export class SaveComponent implements OnInit {
   }
 
   editOrInsert() {
-    if(!!this.data) {
+    if (!!this.data) {
       this.form.patchValue(this.data);
     } else {
       this.form.reset();
@@ -42,11 +40,9 @@ export class SaveComponent implements OnInit {
   }
 
   getAllCategory() {
-    this.categoryService.getAllCategory().subscribe(
-      (resp) => {
-        this.listCategory = resp;
-      }
-    );
+    this.categoryService.getAllCategory().subscribe((resp) => {
+      this.listCategory = resp;
+    });
   }
 
   cancel(refreshPage: boolean) {
@@ -56,25 +52,42 @@ export class SaveComponent implements OnInit {
   save() {
     const valuesForm = this.form.value;
     this.getAllCategory();
-    console.log(valuesForm);
-    if(valuesForm.id == null || valuesForm == '') {
+    if (valuesForm.id == null || valuesForm == '') {
       this.productService.insertProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
-          this.notificationService.notificationComplet('Sucesso ao salvar product', 'OK', 5000);
-        }, err => {
+          this.notificationService.notificationComplet(
+            'Sucesso ao salvar product',
+            'OK',
+            5000
+          );
+        },
+        (err) => {
           this.cancel(false);
-          this.notificationService.notificationComplet('Error ao salvar product', 'OK', 5000);
+          this.notificationService.notificationComplet(
+            'Error ao salvar product',
+            'OK',
+            5000
+          );
         }
       );
     } else {
       this.productService.editProduct(valuesForm).subscribe(
         (resp) => {
           this.cancel(true);
-          this.notificationService.notificationComplet('Sucesso ao salvar product', 'OK', 5000);
-        }, err => {
+          this.notificationService.notificationComplet(
+            'Sucesso ao salvar product',
+            'OK',
+            5000
+          );
+        },
+        (err) => {
           this.cancel(false);
-          this.notificationService.notificationComplet('Error ao salvar product', 'OK', 5000);
+          this.notificationService.notificationComplet(
+            'Error ao salvar product',
+            'OK',
+            5000
+          );
         }
       );
     }

@@ -43,7 +43,11 @@ export class ListProductsComponent implements OnInit {
   deleteProduct(productId: number) {
     this.productService.deleteProduct(productId).subscribe((resp) => {
       this.getAll();
-      this.notificationService.notificationComplet('Sucesso ao deletar produto', 'OK', 5000);
+      this.notificationService.notificationComplet(
+        'Sucesso ao deletar produto',
+        'OK',
+        5000
+      );
     });
   }
 

@@ -12,9 +12,23 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
+  declarations: [
+    NavBarComponent,
+    CompanyVisualizationComponent,
+    ProductsComponent,
+    FooterComponent,
+    PhonePipe,
+    HomePageComponent,
+  ],
   imports: [CommonModule, MatCardModule, MatDialogModule],
   providers: [],
-  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent],
+  exports: [
+    NavBarComponent,
+    CompanyVisualizationComponent,
+    ProductsComponent,
+    FooterComponent,
+    PhonePipe,
+    HomePageComponent,
+  ],
 })
 export class ComponentsModule {}

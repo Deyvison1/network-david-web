@@ -44,7 +44,11 @@ export class ListCategoryComponent implements OnInit {
   deleteCategory(categoryId: number) {
     this.categoryService.deleteCategory(categoryId).subscribe((resp) => {
       this.getAll();
-      this.notificationService.notificationComplet('Sucesso ao deletar categoria', 'OK', 5000);
+      this.notificationService.notificationComplet(
+        'Sucesso ao deletar categoria',
+        'OK',
+        5000
+      );
     });
   }
 
@@ -55,7 +59,7 @@ export class ListCategoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((resp) => {
-      if(resp) {
+      if (resp) {
         this.getAll();
       }
     });
