@@ -31,7 +31,7 @@ export class SaveCategoryComponent implements OnInit {
 
   insertOrEdit() {
     if (!!this.data) {
-      this.editOrInsert = `Editar categoria ${this.data.name}`;
+      this.editOrInsert = `Editar categoria: ${this.data.name}`;
       this.form.patchValue(this.data);
     } else {
       this.editOrInsert = 'Inserir';

@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SaveCategoryComponent } from '../save-category/save-category.component';
 import { Messages } from 'src/app/utils/messages';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-list-category',
@@ -43,24 +44,32 @@ export class ListCategoryComponent implements OnInit {
   }
 
   deleteCategory(categoryId: number) {
-    this.categoryService.deleteCategory(categoryId).subscribe({
-      next: () => {},
-      error: () => {
-        this.notificationService.notificationComplet(
-          Messages.ERR_DELETE_CATEGORY,
-          'OK',
-          5000
-        );
-      },
-      complete: () => {
-        this.getAll();
-        this.notificationService.notificationComplet(
-          Messages.SUCCESS_DELETE_CATEGORY,
-          'OK',
-          5000
-        );
-      },
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '360px'
     });
+
+    dialogRef.afterClosed().subscribe((resp) => {
+      if(resp) {
+        this.categoryService.deleteCategory(categoryId).subscribe({
+          next: () => {},
+          error: () => {
+            this.notificationService.notificationComplet(
+              Messages.ERR_DELETE_CATEGORY,
+              'OK',
+              5000
+            );
+          },
+          complete: () => {
+            this.getAll();
+            this.notificationService.notificationComplet(
+              Messages.SUCCESS_DELETE_CATEGORY,
+              'OK',
+              5000
+            );
+          },
+        });
+      }
+    }); 
   }
 
   addDialogCategory(category?: Category) {

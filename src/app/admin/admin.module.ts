@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { DragAndDropComponent } from '../utils/drag-and-drop/drag-and-drop.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     SaveCategoryComponent,
     ListCategoryComponent,
     ListProductsComponent,
-    DragAndDropComponent
+    DragAndDropComponent,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,

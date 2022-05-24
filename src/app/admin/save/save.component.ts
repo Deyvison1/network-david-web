@@ -35,6 +35,7 @@ export class SaveComponent implements OnInit {
 
   insertOrEdit() {
     if (!!this.data) {
+      this.editOrInsert = `Editar produto: ${this.data.name}`;
       this.form.patchValue(this.data);
     } else {
       this.editOrInsert = 'Adicionar';

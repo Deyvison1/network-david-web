@@ -6,6 +6,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SaveComponent } from '../save/save.component';
 import { Messages } from 'src/app/utils/messages';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-list-products',
@@ -45,22 +46,30 @@ export class ListProductsComponent implements OnInit {
   }
 
   deleteProduct(productId: number) {
-    this.productService.deleteProduct(productId).subscribe({
-      error: () => {
-        this.notificationService.notificationComplet(
-          Messages.ERR_DELETE_PRODUCT,
-          'OK',
-          5000
-        );
-      },
-      complete: () => {
-        this.getAll();
-        this.notificationService.notificationComplet(
-          Messages.SUCCESS_DELETE_PRODUCT,
-          'OK',
-          5000
-        );
-      },
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '360px',
+    });
+
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
+        this.productService.deleteProduct(productId).subscribe({
+          error: () => {
+            this.notificationService.notificationComplet(
+              Messages.ERR_DELETE_PRODUCT,
+              'OK',
+              5000
+            );
+          },
+          complete: () => {
+            this.getAll();
+            this.notificationService.notificationComplet(
+              Messages.SUCCESS_DELETE_PRODUCT,
+              'OK',
+              5000
+            );
+          },
+        });
+      }
     });
   }
 
