@@ -43,33 +43,37 @@ export class ListCategoryComponent implements OnInit {
     this.getAll();
   }
 
-  deleteCategory(categoryId: number) {
+  openModalDeleteCategory(categoryId: number) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '360px'
+      width: '360px',
     });
 
     dialogRef.afterClosed().subscribe((resp) => {
-      if(resp) {
-        this.categoryService.deleteCategory(categoryId).subscribe({
-          next: () => {},
-          error: () => {
-            this.notificationService.notificationComplet(
-              Messages.ERR_DELETE_CATEGORY,
-              'OK',
-              5000
-            );
-          },
-          complete: () => {
-            this.getAll();
-            this.notificationService.notificationComplet(
-              Messages.SUCCESS_DELETE_CATEGORY,
-              'OK',
-              5000
-            );
-          },
-        });
+      if (resp) {
+        this.deleteCategory(categoryId);
       }
-    }); 
+    });
+  }
+
+  notification(message: string, action: string, duration: number) {
+    this.notificationService.notificationComplet(
+      message,
+      action,
+      duration
+    );
+  }
+
+  deleteCategory(categoryId: number) {
+    this.categoryService.deleteCategory(categoryId).subscribe({
+      next: () => {},
+      error: () => {
+        this.notification(Messages.ERR_DELETE_CATEGORY, 'OK', 5000);
+      },
+      complete: () => {
+        this.getAll();
+        this.notification(Messages.SUCCESS_DELETE_CATEGORY, 'OK', 5000);
+      },
+    });
   }
 
   addDialogCategory(category?: Category) {

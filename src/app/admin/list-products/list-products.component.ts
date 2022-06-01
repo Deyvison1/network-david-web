@@ -45,31 +45,35 @@ export class ListProductsComponent implements OnInit {
     this.getAll();
   }
 
-  deleteProduct(productId: number) {
+  openDeleteProduct(productId: number) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '360px',
     });
 
     dialogRef.afterClosed().subscribe((resp) => {
       if (resp) {
-        this.productService.deleteProduct(productId).subscribe({
-          error: () => {
-            this.notificationService.notificationComplet(
-              Messages.ERR_DELETE_PRODUCT,
-              'OK',
-              5000
-            );
-          },
-          complete: () => {
-            this.getAll();
-            this.notificationService.notificationComplet(
-              Messages.SUCCESS_DELETE_PRODUCT,
-              'OK',
-              5000
-            );
-          },
-        });
+        this.deleteProduct(productId);
       }
+    });
+  }
+
+  notification(message: string, action: string, duration: number) {
+    this.notificationService.notificationComplet(
+      message,
+      action,
+      duration
+    );
+  }
+
+  deleteProduct(productId: number) {
+    this.productService.deleteProduct(productId).subscribe({
+      error: () => {
+        this.notification(Messages.ERR_DELETE_PRODUCT, 'OK', 5000);
+      },
+      complete: () => {
+        this.getAll();
+        this.notification(Messages.SUCCESS_DELETE_PRODUCT, 'OK', 5000);
+      },
     });
   }
 

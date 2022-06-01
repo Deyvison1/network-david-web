@@ -8,7 +8,7 @@ export enum Messages {
   SUCCESS_SAVE_PRODUCT = 'Produto salvo com sucesso',
   ERR_SAVE_PRODUCT = 'Error ao salvar produto',
   SUCCESSE_EDIT_PRODUCT = 'Produto editado com sucesso',
-  ERR_EDIT_PRODUCT = 'Error ao salvar produto',
+  ERR_EDIT_PRODUCT = 'Error ao editar produto',
   SUCCESS_DELETE_PRODUCT = 'Produto deletada com sucesso',
   ERR_DELETE_PRODUCT = 'Error ao deletar produto',
 }

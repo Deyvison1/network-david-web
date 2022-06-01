@@ -38,52 +38,47 @@ export class SaveCategoryComponent implements OnInit {
     }
   }
 
+  edit(valuesForm: any) {
+    this.categoryService.editCategory(valuesForm).subscribe({
+      next: () => {},
+      error: () => {
+        this.cancel(true, true, Messages.ERR_EDIT_CATEGORY, 'OK', 5000);
+      },
+      complete: () => {
+        this.cancel(true, true, Messages.SUCCESS_EDIT_CATEGORY, 'OK', 5000);
+      },
+    });
+  }
+
+  insert(valuesForm: any) {
+    this.categoryService.insertCategory(valuesForm).subscribe({
+      next: () => {},
+      error: () => {
+        this.cancel(true, true, Messages.ERR_SAVE_CATEGORY, 'OK', 5000);
+      },
+      complete: () => {
+        this.cancel(true, true, Messages.SUCCESS_SAVE_CATEGORY, 'OK', 5000);
+      },
+    });
+  }
+
   saveCategory() {
     const valuesForm = this.form.value;
-    if (valuesForm.id === '') {
-      this.categoryService.insertCategory(valuesForm).subscribe({
-        next: () => {},
-        error: () => {
-          this.cancel(false);
-          this.notificationService.notificationComplet(
-            Messages.ERR_SAVE_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-        complete: () => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(
-            Messages.SUCCESS_SAVE_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-      });
+    if (valuesForm.id === '' || valuesForm.id === null) {
+      this.insert(valuesForm);
     } else {
-      this.categoryService.editCategory(valuesForm).subscribe({
-        next: () => {},
-        error: () => {
-          this.cancel(false);
-          this.notificationService.notificationComplet(
-            Messages.ERR_EDIT_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-        complete: () => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(
-            Messages.SUCCESS_EDIT_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-      });
+      this.edit(valuesForm);
     }
   }
 
-  cancel(reloead?: boolean) {
+  cancel(reloead: boolean, isMessage: boolean, message?: string, action?: string, duration?: number) {
+    if(isMessage) {
+      this.notificationService.notificationComplet(
+        message,
+        action,
+        duration
+      );
+    }
     this.dialogRef.close(reloead);
   }
 }
