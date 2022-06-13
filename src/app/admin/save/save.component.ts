@@ -8,6 +8,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { FormUtil } from 'src/app/utils/form.utils';
 import { Messages } from 'src/app/utils/messages';
+import { Requireds } from 'src/app/utils/requireds';
+
 
 @Component({
   selector: 'app-save',
@@ -28,7 +30,7 @@ export class SaveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = FormUtil.buildForm(Object.keys(new Product()));
+    this.form = FormUtil.buildForm(Object.keys(new Product()), Requireds.requiredsproduct);
     this.getAllCategory();
     this.insertOrEdit();
   }

@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { FormUtil } from 'src/app/utils/form.utils';
 import { Messages } from 'src/app/utils/messages';
+import { Requireds } from 'src/app/utils/requireds';
 
 @Component({
   selector: 'app-save-category',
@@ -25,7 +26,8 @@ export class SaveCategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = FormUtil.buildForm(Object.keys(new Category()));
+    this.form = FormUtil.buildForm(Object.keys(new Category()), Requireds.requiredsCategory);
+    console.log(this.form);
     this.insertOrEdit();
   }
 
