@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { FormUtil } from 'src/app/utils/form.utils';
 import { Messages } from 'src/app/utils/messages';
+import { Requireds } from 'src/app/utils/requireds';
 
 @Component({
   selector: 'app-save-category',
@@ -25,7 +26,8 @@ export class SaveCategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = FormUtil.buildForm(Object.keys(new Category()));
+    this.form = FormUtil.buildForm(Object.keys(new Category()), Requireds.requiredsCategory);
+    console.log(this.form);
     this.insertOrEdit();
   }
 
@@ -38,52 +40,47 @@ export class SaveCategoryComponent implements OnInit {
     }
   }
 
+  edit(valuesForm: any) {
+    this.categoryService.editCategory(valuesForm).subscribe({
+      next: () => {},
+      error: () => {
+        this.cancel(true, true, Messages.ERR_EDIT_CATEGORY, 'OK', 5000);
+      },
+      complete: () => {
+        this.cancel(true, true, Messages.SUCCESS_EDIT_CATEGORY, 'OK', 5000);
+      },
+    });
+  }
+
+  insert(valuesForm: any) {
+    this.categoryService.insertCategory(valuesForm).subscribe({
+      next: () => {},
+      error: () => {
+        this.cancel(true, true, Messages.ERR_SAVE_CATEGORY, 'OK', 5000);
+      },
+      complete: () => {
+        this.cancel(true, true, Messages.SUCCESS_SAVE_CATEGORY, 'OK', 5000);
+      },
+    });
+  }
+
   saveCategory() {
     const valuesForm = this.form.value;
-    if (valuesForm.id === '') {
-      this.categoryService.insertCategory(valuesForm).subscribe({
-        next: () => {},
-        error: () => {
-          this.cancel(false);
-          this.notificationService.notificationComplet(
-            Messages.ERR_SAVE_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-        complete: () => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(
-            Messages.SUCCESS_SAVE_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-      });
+    if (valuesForm.id === '' || valuesForm.id === null) {
+      this.insert(valuesForm);
     } else {
-      this.categoryService.editCategory(valuesForm).subscribe({
-        next: () => {},
-        error: () => {
-          this.cancel(false);
-          this.notificationService.notificationComplet(
-            Messages.ERR_EDIT_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-        complete: () => {
-          this.cancel(true);
-          this.notificationService.notificationComplet(
-            Messages.SUCCESS_EDIT_CATEGORY,
-            'Ok',
-            5000
-          );
-        },
-      });
+      this.edit(valuesForm);
     }
   }
 
-  cancel(reloead?: boolean) {
+  cancel(reloead: boolean, isMessage: boolean, message?: string, action?: string, duration?: number) {
+    if(isMessage) {
+      this.notificationService.notificationComplet(
+        message,
+        action,
+        duration
+      );
+    }
     this.dialogRef.close(reloead);
   }
 }
