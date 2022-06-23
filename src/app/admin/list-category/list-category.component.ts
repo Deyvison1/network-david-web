@@ -36,6 +36,7 @@ export class ListCategoryComponent implements OnInit {
       .subscribe((resp) => {
         this.listCategory = resp.body;
         this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+        console.log(this.listCategory);
       });
   }
 
