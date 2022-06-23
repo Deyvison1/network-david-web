@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewQrCodeComponent } from '../view-qr-code/view-qr-code.component';
 
 @Component({
   selector: 'app-company-visualization',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyVisualizationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  openModalQrCode() {
+    this.dialog.open(ViewQrCodeComponent, {
+      width: '800',
+      height: '800'
+    });
   }
 
 }
