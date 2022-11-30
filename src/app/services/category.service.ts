@@ -9,7 +9,7 @@ import { LabelValueDTO } from '../models/dto/label-value-dto.dto';
 })
 export class CategoryService {
 
-  urlApiCategory = 'http://localhost:8080/category';
+  urlApiCategory = 'http://localhost:8080/api/category';
 
   constructor(private http: HttpClient) { }
 
