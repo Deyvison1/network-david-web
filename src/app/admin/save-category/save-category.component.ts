@@ -27,7 +27,6 @@ export class SaveCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = FormUtil.buildForm(Object.keys(new Category()), Requireds.requiredsCategory);
-    console.log(this.form);
     this.insertOrEdit();
   }
 

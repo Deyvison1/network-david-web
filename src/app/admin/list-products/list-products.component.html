@@ -22,7 +22,7 @@
       </div>
     </mat-card>
   </div>
-  <button (click)="openDialogProduct()" class="mt-2 btn btn-primary">
+  <button (click)="openDialogProduct()" [disabled]="lengthCategory === '0'" class="mt-2 btn btn-primary">
     Adicionar
   </button>
 </mat-card>

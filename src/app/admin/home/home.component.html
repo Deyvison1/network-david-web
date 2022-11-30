@@ -12,7 +12,7 @@
     </button>
   </div>
 
-  <app-list-products></app-list-products>
+  <app-list-products [lengthCategory]="totalCategory"></app-list-products>
 
-  <app-list-category></app-list-category>
+  <app-list-category (totalItensParam)="getLengthCategory($event)"></app-list-category>
 </mat-card>

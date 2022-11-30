@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Category } from 'src/app/models/dto/category.dto';
@@ -18,6 +18,7 @@ export class ListCategoryComponent implements OnInit {
 
   totalItens: string | null;
   listCategory: Category[] | null = [];
+  @Output() totalItensParam = new EventEmitter<string>()
 
   constructor(
     private dialog: MatDialog,
@@ -36,6 +37,7 @@ export class ListCategoryComponent implements OnInit {
       .subscribe((resp) => {
         this.listCategory = resp.body;
         this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+        this.totalItensParam.emit(this.totalItens);
       });
   }
 
@@ -73,6 +75,16 @@ export class ListCategoryComponent implements OnInit {
         this.getAll();
         this.notification(Messages.SUCCESS_DELETE_CATEGORY, 'OK', 5000);
       },
+    });
+  }
+
+  openDialogDeleteCategory(categoryId: number) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
+        this.deleteCategory(categoryId);
+        this.getAll();
+      }
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -12,6 +12,9 @@ import { SaveComponent } from '../save/save.component';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
+  @Input() totalCategory: string;
+  
   constructor(
     private router: RouterService,
     private localStorageService: LocalStorageService
@@ -22,6 +25,10 @@ export class HomeComponent implements OnInit {
   sair() {
     this.localStorageService.clearAll();
     this.router.redirectionTo('home');
+  }
+
+  getLengthCategory(lengthCategory) {
+    this.totalCategory = lengthCategory;
   }
 
   redirecionarPagePrincipal() {

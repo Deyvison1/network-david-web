@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Product } from 'src/app/models/dto/product.dto';
@@ -18,6 +18,7 @@ export class ListProductsComponent implements OnInit {
 
   listProducts: Product[] | null = [];
   totalItens: string | null;
+  @Input() lengthCategory;
 
   constructor(
     private dialog: MatDialog,
@@ -74,6 +75,17 @@ export class ListProductsComponent implements OnInit {
         this.getAll();
         this.notification(Messages.SUCCESS_DELETE_PRODUCT, 'OK', 5000);
       },
+    });
+  }
+
+  openDialogDeleteProduct(item?: any) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
+        this.deleteProduct(item.id);
+        this.getAll();
+      }
     });
   }
 
