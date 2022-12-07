@@ -15,6 +15,7 @@ import { DragAndDropComponent } from '../utils/drag-and-drop/drag-and-drop.compo
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     ListCategoryComponent,
     ListProductsComponent,
     DeleteDialogComponent,
-    DragAndDropComponent
+    DragAndDropComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

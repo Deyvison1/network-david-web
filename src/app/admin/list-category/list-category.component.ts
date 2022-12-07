@@ -6,7 +6,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SaveCategoryComponent } from '../save-category/save-category.component';
 import { Messages } from 'src/app/utils/messages';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 
 @Component({
   selector: 'app-list-category',
@@ -68,8 +68,8 @@ export class ListCategoryComponent implements OnInit {
   deleteCategory(categoryId: number) {
     this.categoryService.deleteCategory(categoryId).subscribe({
       next: () => {},
-      error: () => {
-        this.notification(Messages.ERR_DELETE_CATEGORY, 'OK', 5000);
+      error: (err) => {
+        this.notification( (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_DELETE_CATEGORY, 'OK', 5000);
       },
       complete: () => {
         this.getAll();

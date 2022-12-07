@@ -1,5 +1,5 @@
 export class CredenciaisDTO {
   constructor(
-    login: string, senha: string, token?: string
+    public login: string, public senha: string, public token?: string
   ) {}
 }

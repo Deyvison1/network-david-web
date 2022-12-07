@@ -42,8 +42,8 @@ export class SaveCategoryComponent implements OnInit {
   edit(valuesForm: any) {
     this.categoryService.editCategory(valuesForm).subscribe({
       next: () => {},
-      error: () => {
-        this.cancel(true, true, Messages.ERR_EDIT_CATEGORY, 'OK', 5000);
+      error: (err) => {    
+        this.cancel(true, true, (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_EDIT_CATEGORY, 'OK', 5000);
       },
       complete: () => {
         this.cancel(true, true, Messages.SUCCESS_EDIT_CATEGORY, 'OK', 5000);
@@ -54,8 +54,8 @@ export class SaveCategoryComponent implements OnInit {
   insert(valuesForm: any) {
     this.categoryService.insertCategory(valuesForm).subscribe({
       next: () => {},
-      error: () => {
-        this.cancel(true, true, Messages.ERR_SAVE_CATEGORY, 'OK', 5000);
+      error: (err) => {
+        this.cancel(false, true, (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_SAVE_CATEGORY, 'OK', 5000);
       },
       complete: () => {
         this.cancel(true, true, Messages.SUCCESS_SAVE_CATEGORY, 'OK', 5000);

@@ -10,4 +10,5 @@ export class Requireds {
     'description',
     'category',
   ];
+  static readonly requiredsUser = ['login', 'senha', 'role'];
 }

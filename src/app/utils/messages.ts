@@ -11,4 +11,5 @@ export enum Messages {
   ERR_EDIT_PRODUCT = 'Error ao editar produto',
   SUCCESS_DELETE_PRODUCT = 'Produto deletada com sucesso',
   ERR_DELETE_PRODUCT = 'Error ao deletar produto',
+  ERR_UNAUTHORIZED = 'Não autorizado'
 }

@@ -25,4 +25,16 @@ export class UserAuthService {
     return this.http.post<User>(`${this.url}`, user);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.url}`, user);
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}`);
+  }
+
+  deleteUser(id) {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+
 }

@@ -73,8 +73,8 @@ export class SaveComponent implements OnInit {
   insert(valuesForm: any) {
     this.productService.insertProduct(valuesForm).subscribe({
       next: () => {},
-      error: () => {
-        this.cancel(false, true, Messages.ERR_SAVE_PRODUCT, 'OK', 5000);
+      error: (err) => {
+        this.cancel(false, true, (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_SAVE_PRODUCT, 'OK', 5000);
       },
       complete: () => {
         this.cancel(true, true, Messages.SUCCESS_SAVE_PRODUCT, 'OK', 5000);
@@ -85,8 +85,8 @@ export class SaveComponent implements OnInit {
   edit(valuesForm: any) {
     this.productService.editProduct(valuesForm).subscribe({
       next: () => {},
-      error: () => {
-        this.cancel(false, true, Messages.ERR_EDIT_PRODUCT, 'OK', 5000);
+      error: (err) => {
+        this.cancel(false, true, (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_EDIT_PRODUCT, 'OK', 5000);
       },
       complete: () => {
         this.cancel(true, true, Messages.SUCCESSE_EDIT_PRODUCT, 'OK', 5000);

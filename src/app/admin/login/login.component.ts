@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private router: RouterService,
     private authService: UserAuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     /**/
@@ -39,27 +39,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
-    let msg = '';
-    let router = '';
-    if (this.verificationLogin()) {
-      msg = 'Logado com sucesso';
-      router = '/home-admin';
-    } else {
-      msg = 'Não autorizado';
-    }
-    this.notification(msg);
-    this.redirectionTo(router);
-    this.cancel();
-  }
-
 
   notification(msg: string) {
     this.notificationService.notificationSimple(msg);
   }
 
   redirectionTo(router: string) {
-    if(router != '') {
+    if (router != '') {
       this.router.redirectionTo(router);
     }
   }
@@ -73,24 +59,28 @@ export class LoginComponent implements OnInit {
     this.cancel();
   }
 
-  verificationLogin(): boolean {
+  verificationLogin() {
     const req = Object.assign({
       login: this.model.name, senha: this.model.senha
     });
 
+
     this.authService.getToken(req).subscribe(
-      (res: any) => {
-        console.log(res);
-        if(res.token) {
-          this.localStorageService.setItem('token', res.token);
-          return true;
-        } else {
-          return false;
+      {
+        complete: () => {
+
+        }, next: (res) => {
+          if (res.token) {
+            this.localStorageService.setItem('token', res.token);
+            this.notification('Logado com sucesso.');
+          }
+        }, error: (err) => {
+          if (err.status == 401) {
+            this.notification('Usuario e(ou) senha invalido.');
+          }
         }
-      }, err => {
-        return false;
       }
     );
-    return true;
+    this.cancel();
   }
 }

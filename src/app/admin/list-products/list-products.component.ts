@@ -68,8 +68,8 @@ export class ListProductsComponent implements OnInit {
 
   deleteProduct(productId: number) {
     this.productService.deleteProduct(productId).subscribe({
-      error: () => {
-        this.notification(Messages.ERR_DELETE_PRODUCT, 'OK', 5000);
+      error: (err) => {
+        this.notification( (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_DELETE_PRODUCT, 'OK', 5000);
       },
       complete: () => {
         this.getAll();
