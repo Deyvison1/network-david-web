@@ -2,7 +2,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../models/dto/category.dto';
-import { LabelValueDTO } from '../models/dto/label-value-dto.dto';
 
 @Injectable({
   providedIn: 'root'

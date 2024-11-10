@@ -7,7 +7,7 @@ import { ViewQrCodeComponent } from './components/view-qr-code/view-qr-code.comp
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
-  { path: 'home-admin', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home-admin', component: HomeComponent },
   { path: 'view-qr-code', component: ViewQrCodeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },

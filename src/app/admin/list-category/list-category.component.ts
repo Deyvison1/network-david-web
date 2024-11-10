@@ -33,10 +33,11 @@ export class ListCategoryComponent implements OnInit {
 
   getAll() {
     this.categoryService
-      .getAllCategoryPage(this.paginacao.pageIndex, this.paginacao.pageSize)
+      .getAllCategoryPage(this.paginacao.pageIndex, 10)
       .subscribe((resp) => {
         this.listCategory = resp.body;
         this.totalItens = resp.headers.get('X_TOTAL_COUNT');
+        console.log(resp)
         this.totalItensParam.emit(this.totalItens);
       });
   }
