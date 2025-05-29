@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CredenciaisDTO } from 'src/app/models/dto/credentials';
+import { User } from 'src/app/models/dto/user.dto';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { RouterService } from 'src/app/services/router.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,17 +16,14 @@ import { RouterService } from 'src/app/services/router.service';
 })
 export class LoginComponent implements OnInit {
   model: any = {};
-  objectLoginSuccess = {
-    name: 'David',
-    senha: 'DoisUm',
-  };
 
   constructor(
     private notificationService: NotificationService,
     private dialogRef: MatDialogRef<LoginComponent>,
     private localStorageService: LocalStorageService,
-    private router: RouterService
-  ) {}
+    private router: RouterService,
+    private authService: UserAuthService
+  ) { }
 
   ngOnInit(): void {
     /**/
@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
 
   isLogado(): boolean {
     if (
-      this.localStorageService.getItem('logado') ===
-      '123123asdas///123.,,p,pap12312'
+      this.localStorageService.getItem('token')
     ) {
       return true;
     } else {
@@ -40,34 +39,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
-    let msg = '';
-    let router = '';
-    if (this.verificationLogin()) {
-      msg = 'Logado com sucesso';
-      router = 'home-admin';
-      this.saveLocalStorage();
-    } else {
-      msg = 'Não autorizado';
-    }
-    this.notification(msg);
-    this.redirectionTo(router);
-    this.cancel();
-  }
-
-  saveLocalStorage() {
-    this.localStorageService.setItem(
-      'logado',
-      '123123asdas///123.,,p,pap12312'
-    );
-  }
 
   notification(msg: string) {
     this.notificationService.notificationSimple(msg);
   }
 
   redirectionTo(router: string) {
-    this.router.redirectionTo(router);
+    if (router != '') {
+      this.router.redirectionTo(router);
+    }
   }
 
   cancel() {
@@ -79,14 +59,28 @@ export class LoginComponent implements OnInit {
     this.cancel();
   }
 
-  verificationLogin(): boolean {
-    if (
-      this.model.name === this.objectLoginSuccess.name &&
-      this.model.senha === this.objectLoginSuccess.senha
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  verificationLogin() {
+    const req = Object.assign({
+      login: this.model.name, senha: this.model.senha
+    });
+
+
+    this.authService.getToken(req).subscribe(
+      {
+        complete: () => {
+
+        }, next: (res) => {
+          if (res.token) {
+            this.localStorageService.setItem('token', res.token);
+            this.notification('Logado com sucesso.');
+          }
+        }, error: (err) => {
+          if (err.status == 401) {
+            this.notification('Usuario e(ou) senha invalido.');
+          }
+        }
+      }
+    );
+    this.cancel();
   }
 }

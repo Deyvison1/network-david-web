@@ -1,34 +1,72 @@
 <div>
-  <app-drag-and-drop></app-drag-and-drop>
-  <h2 class="text-center">Plano</h2>
+  <app-drag-and-drop [title]="editOrInsert"></app-drag-and-drop>
   <form [formGroup]="form">
     <div class="row">
       <div class="col-4">
         <label>Nome:</label>
         <input
+        [ngClass]="{
+          'is-invalid':
+            form.get('name').errors && form.get('name').touched
+        }"
           class="form-control"
           type="text"
           formControlName="name"
           placeholder="Nome"
         />
+        <div
+        *ngIf="
+          form.get('name').hasError('required') &&
+          form.get('name').touched
+        "
+        class="invalid-feedback"
+      >
+        Nome é obrigatório.
+      </div>
       </div>
       <div class="col">
         <label>Velocidade de Download:</label>
         <input
+        [ngClass]="{
+          'is-invalid':
+            form.get('speedDownload').errors && form.get('speedDownload').touched
+        }"
           class="form-control"
           type="number"
           formControlName="speedDownload"
           placeholder="Velocidade de Download"
         />
+        <div
+        *ngIf="
+          form.get('speedDownload').hasError('required') &&
+          form.get('speedDownload').touched
+        "
+        class="invalid-feedback"
+      >
+        Velocidade de download é obrigatório.
+      </div>
       </div>
       <div class="col">
         <label>Velocidade de Upload:</label>
         <input
+        [ngClass]="{
+          'is-invalid':
+            form.get('speedUpload').errors && form.get('speedUpload').touched
+        }"
           class="form-control"
           type="number"
           formControlName="speedUpload"
           placeholder="Velocidade de Upload"
         />
+        <div
+        *ngIf="
+          form.get('speedUpload').hasError('required') &&
+          form.get('speedUpload').touched
+        "
+        class="invalid-feedback"
+      >
+        Velocidade de upload é obrigatório.
+      </div>
       </div>
     </div>
 
@@ -36,55 +74,123 @@
       <div class="col">
         <label>Taxa de Adesão:</label>
         <input
+        [ngClass]="{
+          'is-invalid':
+            form.get('taxaAdesao').errors && form.get('taxaAdesao').touched
+        }"
           class="form-control"
           type="number"
           formControlName="taxaAdesao"
           placeholder="Taxa de Adesão"
         />
+        <div
+        *ngIf="
+          form.get('taxaAdesao').hasError('required') &&
+          form.get('taxaAdesao').touched
+        "
+        class="invalid-feedback"
+      >
+        Taxa de adesão é obrigatório.
+      </div>
       </div>
       <div class="col">
         <label>Valor Wifi:</label>
         <input
+        [ngClass]="{
+          'is-invalid':
+            form.get('valueWifi').errors && form.get('valueWifi').touched
+        }"
           class="form-control"
           type="number"
           formControlName="valueWifi"
           placeholder="Valor Wifi"
         />
+        <div
+        *ngIf="
+          form.get('valueWifi').hasError('required') &&
+          form.get('valueWifi').touched
+        "
+        class="invalid-feedback"
+      >
+        Valor do wi-fi é obrigatório.
+      </div>
       </div>
       <div class="col">
         <label>Valor:</label>
         <input
+        [ngClass]="{
+          'is-invalid':
+            form.get('value').errors && form.get('value').touched
+        }"
           class="form-control"
           type="number"
           formControlName="value"
           placeholder="Valor"
         />
+        <div
+        *ngIf="
+          form.get('value').hasError('required') &&
+          form.get('value').touched
+        "
+        class="invalid-feedback"
+      >
+        Valor é obrigatório.
+      </div>
       </div>
     </div>
     <div class="row">
       <div>
         <label>Descrição</label>
         <textarea
+        [ngClass]="{
+          'is-invalid':
+            form.get('description').errors && form.get('description').touched
+        }"
           class="form-control"
           name="description"
           cols="30"
           formControlName="description"
         ></textarea>
+        <div
+        *ngIf="
+          form.get('description').hasError('required') &&
+          form.get('description').touched
+        "
+        class="invalid-feedback"
+      >
+        Descrição é obrigatório.
+      </div>
       </div>
     </div>
     <div class="mt-2 row">
       <div class="col">
-        <select class="form-control" formControlName="category">
-          <option *ngFor="let category of listCategory" [ngValue]="category">
+        <label>Categoria</label>
+        <select [ngClass]="{
+          'is-invalid':
+            form.get('category').errors && form.get('category').touched
+        }" class="form-control" formControlName="category" [compareWith]="compareFn">
+          <option
+            *ngFor="let category of listCategory"
+            [ngValue]="category"
+          >
             {{ category.name }}
           </option>
         </select>
+        <div
+        *ngIf="
+          form.get('category').hasError('required') &&
+          form.get('category').touched
+        "
+        class="invalid-feedback"
+      >
+        Categoria é obrigatório.
+      </div>
       </div>
     </div>
 
     <div class="mt-2 d-flex justify-content-between">
-      <button (click)="cancel(false)" class="btn btn-secondary">Fechar</button>
-      <button (click)="save()" class="btn btn-success">Salvar</button>
+      <button (click)="cancel(false, false)" class="btn btn-secondary">Fechar</button>
+      <button [disabled]="!form.valid" (click)="save()" class="btn btn-success">Salvar</button>
     </div>
   </form>
 </div>

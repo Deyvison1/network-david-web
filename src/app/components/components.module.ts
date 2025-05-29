@@ -10,8 +10,10 @@ import { MatCardModule } from '@angular/material/card';
 import { PhonePipe } from '../pipes/phone.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ViewQrCodeComponent } from './view-qr-code/view-qr-code.component';
 
 @NgModule({
+<<<<<<< HEAD
   declarations: [
     NavBarComponent,
     CompanyVisualizationComponent,
@@ -30,5 +32,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     PhonePipe,
     HomePageComponent,
   ],
+=======
+  declarations: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent, ViewQrCodeComponent],
+  imports: [CommonModule, MatCardModule, MatDialogModule],
+  providers: [],
+  exports: [NavBarComponent, CompanyVisualizationComponent, ProductsComponent, FooterComponent, PhonePipe, HomePageComponent, ViewQrCodeComponent],
+>>>>>>> feature/teste
 })
 export class ComponentsModule {}

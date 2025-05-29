@@ -2,14 +2,14 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../models/dto/category.dto';
-import { LabelValueDTO } from '../models/dto/label-value-dto.dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  urlApiCategory = 'http://localhost:8080/category';
+  urlApiCategory = environment.urlApi.concat('/api/category');
 
   constructor(private http: HttpClient) { }
 

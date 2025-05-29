@@ -5,28 +5,33 @@
       <div class="d-flex justify-content-between">
         <div>
           <span>{{ product.name }}</span>
-          <span>{{ product.description }}</span>
+          <span class="fieldDescription">{{ product.description }}</span>
         </div>
         <div>
           <button
             class="btn btn-secondary btn-sm"
-            (click)="openDialogProduct()"
+            (click)="openDialogProduct(product)"
             matTooltip="Editar categoria"
           >
-            <i class="fa-solid fa-pen-to-square fa-2xs"></i>
+            <em class="fa-solid fa-pen-to-square fa-2xs"></em>
           </button>
+<<<<<<< HEAD
           <button
             (click)="deleteProduct(product.id)"
             class="btn btn-danger btn-sm"
             matTooltip="Deletar categoria"
           >
             <i class="fa-solid fa-trash-can fa-2xs"></i>
+=======
+          <button (click)="openDeleteProduct(product.id)" class="btn btn-danger btn-sm" matTooltip="Deletar categoria">
+            <em class="fa-solid fa-trash-can fa-2xs"></em>
+>>>>>>> feature/teste
           </button>
         </div>
       </div>
     </mat-card>
   </div>
-  <button (click)="openDialogProduct()" class="mt-2 btn btn-primary">
+  <button (click)="openDialogProduct()" [disabled]="lengthCategory === '0'" class="mt-2 btn btn-primary">
     Adicionar
   </button>
 </mat-card>

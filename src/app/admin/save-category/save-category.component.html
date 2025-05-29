@@ -1,31 +1,60 @@
 <div>
-  <app-drag-and-drop></app-drag-and-drop>
-  <h4 class="text-center">{{ editOrInsert + ' Categoria' }}</h4>
+  <app-drag-and-drop [title]="editOrInsert"></app-drag-and-drop>
   <form [formGroup]="form">
     <div class="row">
       <div>
         <label>Nome:</label>
         <input
+          [ngClass]="{
+            'is-invalid': form.get('name').errors && form.get('name').touched
+          }"
           type="text"
           class="form-control"
           formControlName="name"
           placeholder="Nome"
         />
+        <div
+          *ngIf="
+            form.get('name').hasError('required') && form.get('name').touched
+          "
+          class="invalid-feedback"
+        >
+          Nome é obrigatório.
+        </div>
       </div>
     </div>
     <div class="row">
       <div>
         <label>Descrição</label>
         <textarea
+          [ngClass]="{
+            'is-invalid':
+              form.get('description').errors && form.get('description').touched
+          }"
           class="form-control"
           formControlName="description"
           cols="30"
         ></textarea>
+        <div
+          *ngIf="
+            form.get('description').hasError('required') &&
+            form.get('description').touched
+          "
+          class="invalid-feedback"
+        >
+          Descrição é obrigatório.
+        </div>
       </div>
     </div>
     <div class="mt-2 d-flex justify-content-between">
-      <button (click)="cancel()" class="btn btn-secondary">Fechar</button>
-      <button (click)="saveCategory()" class="btn btn-success">
+      <button (click)="cancel(false, false)" class="btn btn-secondary">
+        Fechar
+      </button>
+      <button
+        [disabled]="!form.valid"
+        (click)="saveCategory()"
+        class="btn btn-success"
+      >
         Salvar Categoria
       </button>
     </div>

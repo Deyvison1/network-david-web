@@ -2,7 +2,7 @@
   <div class="text-center">
     <h2>Login</h2>
   </div>
-  <form (ngSubmit)="login()">
+  <form (ngSubmit)="verificationLogin()">
     <div class="row">
       <div class="col">
         <input
@@ -35,7 +35,7 @@
 <div *ngIf="isLogado()" class="text-center">
   <i class="fa-solid fa-thumbs-up"></i> <br />
   <h4>Você já esta logado!!</h4>
-  <button (click)="btnEntrar()" class="btn btn-secondary">
+  <button (click)="btnEntrar()" class="btn btn-secondary mt-1">
     <i class="fa-solid fa-screwdriver-wrench"></i>&nbsp; Ir para area admin
   </button>
 </div>

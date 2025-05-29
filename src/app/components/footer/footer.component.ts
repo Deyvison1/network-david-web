@@ -9,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
   constructor() {}
 
+<<<<<<< HEAD
   ngOnInit(): void {}
 
   getAllProducts() {}
+=======
+  constructor(
+  ) { }
+
+  ngOnInit(): void {  }
+
+>>>>>>> feature/teste
 }
