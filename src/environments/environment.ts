@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlApi: 'http://193.203.174.214:8080'
+  urlApi: 'https://nwet-work-david.onrender.com'
 };
 
 /*
