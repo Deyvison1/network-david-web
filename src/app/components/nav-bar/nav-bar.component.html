@@ -1,14 +1,41 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
   <div class="container">
-    <a
-      ><strong>{{ nameApplication | uppercase }}</strong></a
-    >
+    <div>
+      <a
+        ><strong>{{ nameApplication | uppercase }}</strong></a
+      >
+    </div>
     <div>
       <button class="btn btn-outline-primary">Central do Cliente</button>
-    &nbsp;
-      <button (click)="openDialog()" class="btn btn-outline-success">
+      &nbsp;
+      <button
+        *ngIf="isLoggedIn"
+        (click)="openDialogLogin()"
+        class="btn btn-outline-success"
+      >
         Area Admin
+      </button>
+    </div>
+    <div>
+      <button *ngIf="!isLoggedIn" mat-flat-button (click)="login()">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+      <button *ngIf="isLoggedIn" mat-flat-button [matMenuTriggerFor]="menu">
+        {{ userLogado.login | titlecase }}
       </button>
     </div>
   </div>
 </nav>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="openProfile()">
+    <mat-icon>account_circle</mat-icon>
+    <span>Perfil</span>
+  </button>
+
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Sair</span>
+  </button>
+</mat-menu>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { User } from 'src/app/models/dto/user.dto';
+import { UserDTO } from 'src/app/models/dto/user.dto';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { FormUtil } from 'src/app/utils/form.utils';
@@ -11,30 +11,41 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   form: FormGroup;
-  users: User[] = [];
+  users: UserDTO[] = [];
   openForm: boolean = false;
   editOrInsert: string = '';
 
-  listRoles = [{ role: 'ADMIN', view: 'Administrador' }, { role: 'USER', view: 'Usuario' }];
+  listRoles = [
+    { role: 'ADMIN', view: 'Administrador' },
+    { role: 'USER', view: 'Usuario' },
+  ];
 
-  constructor(private userService: UserAuthService, private notificationService: NotificationService, private dialog: MatDialog) { }
+  constructor(
+    private readonly userService: UserAuthService,
+    private readonly notificationService: NotificationService,
+    private readonly dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.form = FormUtil.buildForm(Object.keys(new User()), Requireds.requiredsUser);
+    this.form = FormUtil.buildForm(
+      Object.keys(new UserDTO()),
+      Requireds.requiredsUser
+    );
     this.getUsers();
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe(
-      (res) => {
+    this.userService.getUsers().subscribe({
+      next(res: UserDTO[]) {
         this.users = res;
-      }, err => {
-      }
-    );
+      },
+      error(err) {},
+      complete: () => {},
+    });
   }
 
   compareFn(c1: any, c2: any): boolean {
@@ -48,17 +59,25 @@ export class UserComponent implements OnInit {
   }
 
   delete(userId) {
-    this.userService.deleteUser(userId).subscribe(
-      {
-        complete: () => {
-          this.getUsers();
-        }, next: () => {
-          this.notificationService.notificationComplet('Deletado com sucesso', 'OK', 5000);
-        }, error: (err) => {
-          this.notificationService.notificationComplet('Falha ao deletar!', 'OK', 5000);
-        }
-      }
-    );
+    this.userService.deleteUser(userId).subscribe({
+      complete: () => {
+        this.getUsers();
+      },
+      next: () => {
+        this.notificationService.notificationComplet(
+          'Deletado com sucesso',
+          'OK',
+          5000
+        );
+      },
+      error: (err) => {
+        this.notificationService.notificationComplet(
+          'Falha ao deletar!',
+          'OK',
+          5000
+        );
+      },
+    });
   }
 
   save() {
@@ -70,22 +89,29 @@ export class UserComponent implements OnInit {
     }
   }
 
-  addUser(user?: User) {
-    this.userService.insertUser(user).subscribe(
-      {
-        next: (res) => {
-          this.notificationService.notificationComplet('Cadastrado com sucesso', 'OK', 5000);
-          this.getUsers();
-        }, error: (err) => {
-          this.notificationService.notificationComplet('Cadastro de usuario falhou!', 'OK', 5000);
-        }, complete: () => {
-        }
-      }
-    );
+  addUser(user?: UserDTO) {
+    this.userService.insertUser(user).subscribe({
+      next: (res) => {
+        this.notificationService.notificationComplet(
+          'Cadastrado com sucesso',
+          'OK',
+          5000
+        );
+        this.getUsers();
+      },
+      error: (err) => {
+        this.notificationService.notificationComplet(
+          'Cadastro de usuario falhou!',
+          'OK',
+          5000
+        );
+      },
+      complete: () => {},
+    });
     this.defaultFormAdd();
   }
 
-  editOrInsertMehtod(data?: User) {
+  editOrInsertMehtod(data?: UserDTO) {
     if (data) {
       this.openForm = true;
       this.editOrInsert = 'edit';
@@ -108,18 +134,25 @@ export class UserComponent implements OnInit {
     });
   }
 
-  updateUser(user?: User) {
-    this.userService.updateUser(user).subscribe(
-      {
-        next: () => {
-          this.getUsers();
-          this.notificationService.notificationComplet('Atualizado comm sucesso!', 'OK', 5000);
-        }, error: () => {
-          this.notificationService.notificationComplet('Atualização de usuario falhou!', 'OK', 5000);
-        }, complete: () => {
-        }
-      }
-    );
+  updateUser(user?: UserDTO) {
+    this.userService.updateUser(user).subscribe({
+      next: () => {
+        this.getUsers();
+        this.notificationService.notificationComplet(
+          'Atualizado comm sucesso!',
+          'OK',
+          5000
+        );
+      },
+      error: () => {
+        this.notificationService.notificationComplet(
+          'Atualização de usuario falhou!',
+          'OK',
+          5000
+        );
+      },
+      complete: () => {},
+    });
     this.defaultFormAdd();
   }
 

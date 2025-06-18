@@ -1,6 +1,6 @@
 import { Category } from './category.dto';
 
-export class Product {
+export class ProductDTO {
   constructor(
     public id?: number,
     public name?: string,

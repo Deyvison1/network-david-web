@@ -5,14 +5,13 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router) { }
-
+  constructor(private readonly router: Router) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -29,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
           succ => { },
           err => {
             if (err.status === 401) {
-              return;
+              this.router.navigateByUrl('/home');
             }
           }
         )

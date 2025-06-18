@@ -1,0 +1,86 @@
+<mat-card class="container center" *ngIf="userLogado">
+  <div class="d-flex justify-content-center mb-5">
+    <h2>Titulo</h2>
+  </div>
+  <div>
+    <div class="d-flex justify-content-center mb-5">
+      <h4>Usuario: {{ userLogado.login }}</h4>
+    </div>
+  </div>
+
+  <form [formGroup]="form" class="form-group">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label for="login">Login</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="login"
+            placeholder="Login"
+          />
+        </div>
+        <div class="form-group">
+          <label for="role">Papel</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="role"
+            placeholder="Papel"
+          />
+        </div>
+        <div class="form-group" *ngIf="isUpdate">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="senha"
+            placeholder="Senha"
+          />
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input
+            type="text"
+            formControlName="role"
+            class="form-control"
+            placeholder="Papel"
+            aria-label="Papel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input
+            type="text"
+            formControlName="role"
+            class="form-control"
+            placeholder="Papel"
+            aria-label="Papel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="createdAt">Dt. Criação</label>
+          <input
+            type="text"
+            formControlName="createdAt"
+            class="form-control"
+            placeholder="Dt. Criação"
+          />
+        </div>
+        <div class="form-group">
+          <label for="updatedAt">Dt. Atualização</label>
+          <input
+            type="text"
+            formControlName="updatedAt"
+            class="form-control"
+            placeholder="Dt. Atualização"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    
+  </div>
+</mat-card>

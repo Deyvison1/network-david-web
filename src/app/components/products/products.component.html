@@ -1,27 +1,30 @@
-<mat-card *ngIf="products.length" class="container mt-3 shadow p-3 mb-5 bg-white rounded">
+<mat-card
+  *ngIf="products.length"
+  class="container mt-3 shadow p-3 mb-5 bg-white rounded"
+>
   <div class="d-flex justify-content-around">
     <mat-card *ngFor="let product of products" class="mat-card-color">
-      <span
-        ><strong>{{ product.category?.name }}</strong> </span
+      <span class="h5 font-weight-bold"
+        >{{ product.category?.name }} </span
       ><br />
       <div>
         <span> Download: {{ product.speedDownload + " MB" }} <br /> </span>
         <span> Upload: {{ product.speedUpload + " MB" }} <br /> </span>
         <span *ngIf="product.valueWifi"
-          >Wifi: {{ product.valueWifi | currency: "BRL" }}</span
+          >Wifi: {{ product.valueWifi | currency : "BRL" }}</span
         >
         <span *ngIf="!product.valueWifi">Wifi Grátis</span> <br />
         <span *ngIf="product.taxaAdesao"
-          >Adesão: {{ product.taxaAdesao | currency: "BRL" }}</span
+          >Adesão: {{ product.taxaAdesao | currency : "BRL" }}</span
         >
         <span *ngIf="!product.taxaAdesao">Sem Taxa de Adesão</span>
         <br />
-        <span> Valor: {{ product.value | currency: "BRL" }} </span>
+        <span> Valor: {{ product.value | currency : "BRL" }} </span>
       </div>
 
       <div class="mt-2">
         <button class="btn btn-success" (click)="openModalViewQrCode()">
-          Contrate Agora &nbsp;<em class="fa-brands fa-whatsapp"></em>
+          Contrate Agora <em class="fa-brands fa-whatsapp"></em>
         </button>
       </div>
     </mat-card>

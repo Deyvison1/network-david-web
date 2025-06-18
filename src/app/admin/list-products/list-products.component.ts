@@ -1,7 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { Product } from 'src/app/models/dto/product.dto';
+import { ProductDTO } from 'src/app/models/dto/product.dto';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SaveComponent } from '../save/save.component';
@@ -16,14 +21,14 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 export class ListProductsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginacao: MatPaginator;
 
-  listProducts: Product[] | null = [];
+  listProducts: ProductDTO[] | null = [];
   totalItens: string | null;
   @Input() lengthCategory;
 
   constructor(
-    private dialog: MatDialog,
-    private productService: ProductService,
-    private notificationService: NotificationService
+    private readonly dialog: MatDialog,
+    private readonly productService: ProductService,
+    private readonly notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -59,17 +64,19 @@ export class ListProductsComponent implements OnInit {
   }
 
   notification(message: string, action: string, duration: number) {
-    this.notificationService.notificationComplet(
-      message,
-      action,
-      duration
-    );
+    this.notificationService.notificationComplet(message, action, duration);
   }
 
   deleteProduct(productId: number) {
     this.productService.deleteProduct(productId).subscribe({
       error: (err) => {
-        this.notification( (err.status == 403)? Messages.ERR_UNAUTHORIZED : Messages.ERR_DELETE_PRODUCT, 'OK', 5000);
+        this.notification(
+          err.status == 403
+            ? Messages.ERR_UNAUTHORIZED
+            : Messages.ERR_DELETE_PRODUCT,
+          'OK',
+          5000
+        );
       },
       complete: () => {
         this.getAll();

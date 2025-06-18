@@ -16,6 +16,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { UserComponent } from './user/user.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { UserComponent } from './user/user.component';
     ListProductsComponent,
     DeleteDialogComponent,
     DragAndDropComponent,
-    UserComponent
+    UserComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -38,10 +41,11 @@ import { UserComponent } from './user/user.component';
     DragDropModule,
     MatButtonModule,
     MatTooltipModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule,
   ],
   exports: [],
   providers: [],
   entryComponents: [],
 })
-export class AdmimModule { }
+export class AdmimModule {}

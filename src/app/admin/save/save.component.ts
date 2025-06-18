@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/dto/category.dto';
-import { Product } from 'src/app/models/dto/product.dto';
+import { ProductDTO } from 'src/app/models/dto/product.dto';
 import { CategoryService } from 'src/app/services/category.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -23,14 +23,14 @@ export class SaveComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<SaveComponent>,
-    private productService: ProductService,
-    private categoryService: CategoryService,
-    private notificationService: NotificationService
+    private readonly dialogRef: MatDialogRef<SaveComponent>,
+    private readonly productService: ProductService,
+    private readonly categoryService: CategoryService,
+    private readonly notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
-    this.form = FormUtil.buildForm(Object.keys(new Product()), Requireds.requiredsproduct);
+    this.form = FormUtil.buildForm(Object.keys(new ProductDTO()), Requireds.requiredsproduct);
     this.getAllCategory();
     this.insertOrEdit();
   }
